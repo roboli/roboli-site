@@ -15,18 +15,39 @@ class ScaffoldNavigationSideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.work), label: 'My Work'),
-        ],
-        currentIndex: navigationShell.currentIndex,
-        onTap: (int tappedIndex) {
-          navigationShell.goBranch(tappedIndex);
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+            body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: [
+                  const NavigationRailDestination(
+                    icon: Icon(Icons.home),
+                    label: Text('Home'),
+                  ),
+                  const NavigationRailDestination(
+                    icon: Icon(Icons.work),
+                    label: Text('My Work'),
+                  ),
+                ],
+                selectedIndex: navigationShell.currentIndex,
+                onDestinationSelected: (value) {
+                  navigationShell.goBranch(value);
+                },
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: navigationShell,
+              ),
+            ),
+          ],
+        ));
+      },
     );
   }
 }
