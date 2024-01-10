@@ -1,25 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+void main() {
+  runApp(const SiteApp());
+}
+
+class ScaffoldNavigationSideBar extends StatelessWidget {
+  const ScaffoldNavigationSideBar({
+    required this.navigationShell,
+    Key? key,
+  }) : super(key: key ?? const ValueKey<String>('ScaffoldNavigationSideBar'));
+
+  final StatefulNavigationShell navigationShell;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: navigationShell,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.work), label: 'My Work'),
+        ],
+        currentIndex: navigationShell.currentIndex,
+        onTap: (int tappedIndex) {
+          navigationShell.goBranch(tappedIndex);
+        },
+      ),
+    );
+  }
+}
+
 final _router = GoRouter(
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const HomePage(),
+    StatefulShellRoute.indexedStack(
+      builder: (BuildContext context, GoRouterState state,
+          StatefulNavigationShell navigationShell) {
+        return ScaffoldNavigationSideBar(
+          navigationShell: navigationShell,
+        );
+      },
+      branches: <StatefulShellBranch>[
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/',
+              builder: (BuildContext context, GoRouterState state) {
+                return const HomePage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/work',
+              builder: (BuildContext context, GoRouterState state) {
+                return const MyWorkPage();
+              },
+            ),
+          ],
+        ),
+      ],
     ),
-    GoRoute(
-      path: '/work',
-      builder: (context, state) => const MyWorkPage(),
-    )
   ],
 );
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SiteApp extends StatelessWidget {
+  const SiteApp({super.key});
 
   // This widget is the root of your application.
   @override
