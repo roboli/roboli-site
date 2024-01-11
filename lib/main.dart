@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:collection/collection.dart';
 
 void main() {
   runApp(const SiteApp());
@@ -7,11 +8,13 @@ void main() {
 
 class ScaffoldNavigationSideBar extends StatelessWidget {
   const ScaffoldNavigationSideBar({
-    required this.navigationShell,
-    Key? key,
+      required this.navigationShell,
+      required this.children,
+      Key? key,
   }) : super(key: key ?? const ValueKey<String>('ScaffoldNavigationSideBar'));
 
   final StatefulNavigationShell navigationShell;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +43,9 @@ class ScaffoldNavigationSideBar extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: navigationShell,
+              child: AnimatedBranchContainer(
+                currentIndex: navigationShell.currentIndex,
+                children: children,
               ),
             ),
           ],
@@ -54,11 +57,19 @@ class ScaffoldNavigationSideBar extends StatelessWidget {
 
 final _router = GoRouter(
   routes: [
-    StatefulShellRoute.indexedStack(
+    StatefulShellRoute(
       builder: (BuildContext context, GoRouterState state,
           StatefulNavigationShell navigationShell) {
+        return navigationShell;
+      },
+      navigatorContainerBuilder: (
+        BuildContext context,
+        StatefulNavigationShell navigationShell,
+        List<Widget> children
+      ) {
         return ScaffoldNavigationSideBar(
           navigationShell: navigationShell,
+          children: children,
         );
       },
       branches: <StatefulShellBranch>[
@@ -86,6 +97,46 @@ final _router = GoRouter(
     ),
   ],
 );
+
+// Example from:
+// https://github.com/flutter/packages/blob/0744fe6fdb31933d05d11699e7f44e1dd2c63e48/packages/go_router/example/lib/others/custom_stateful_shell_route.dart#L227
+class AnimatedBranchContainer extends StatelessWidget {
+  /// Creates a AnimatedBranchContainer
+  const AnimatedBranchContainer(
+      {super.key, required this.currentIndex, required this.children});
+
+  /// The index (in [children]) of the branch Navigator to display.
+  final int currentIndex;
+
+  /// The children (branch Navigators) to display in this container.
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+        children: children.mapIndexed(
+      (int index, Widget navigator) {
+        return AnimatedScale(
+          scale: index == currentIndex ? 1 : 1.5,
+          duration: const Duration(milliseconds: 400),
+          child: AnimatedOpacity(
+            opacity: index == currentIndex ? 1 : 0,
+            duration: const Duration(milliseconds: 400),
+            child: _branchNavigatorWrapper(index, navigator),
+          ),
+        );
+      },
+    ).toList());
+  }
+
+  Widget _branchNavigatorWrapper(int index, Widget navigator) => IgnorePointer(
+        ignoring: index != currentIndex,
+        child: TickerMode(
+          enabled: index == currentIndex,
+          child: navigator,
+        ),
+      );
+}
 
 class SiteApp extends StatelessWidget {
   const SiteApp({super.key});
