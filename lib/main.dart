@@ -32,8 +32,28 @@ class ScaffoldNavigationSideBar extends StatelessWidget {
                     label: Text('Home'),
                   ),
                   const NavigationRailDestination(
+                    icon: Icon(Icons.person),
+                    label: Text('About'),
+                  ),
+                  const NavigationRailDestination(
+                    icon: Icon(Icons.gamepad),
+                    label: Text('Skills'),
+                  ),
+                  const NavigationRailDestination(
                     icon: Icon(Icons.work),
+                    label: Text('Experience'),
+                  ),
+                  const NavigationRailDestination(
+                    icon: Icon(Icons.palette_rounded),
                     label: Text('My Work'),
+                  ),
+                  const NavigationRailDestination(
+                    icon: Icon(Icons.email),
+                    label: Text('Contact'),
+                  ),
+                  const NavigationRailDestination(
+                    icon: Icon(Icons.flutter_dash),
+                    label: Text('Bored?'),
                   ),
                 ],
                 selectedIndex: navigationShell.currentIndex,
@@ -86,9 +106,59 @@ final _router = GoRouter(
         StatefulShellBranch(
           routes: <RouteBase>[
             GoRoute(
+              path: '/about',
+              builder: (BuildContext context, GoRouterState state) {
+                return const AboutPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/skills',
+              builder: (BuildContext context, GoRouterState state) {
+                return const SkillsPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/experience',
+              builder: (BuildContext context, GoRouterState state) {
+                return const ExperiencePage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
               path: '/work',
               builder: (BuildContext context, GoRouterState state) {
                 return const MyWorkPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/contact',
+              builder: (BuildContext context, GoRouterState state) {
+                return const ContactPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/games',
+              builder: (BuildContext context, GoRouterState state) {
+                return const GamesPage();
               },
             ),
           ],
@@ -161,14 +231,47 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
+      body: const Center(
+        child: Text('Welcome'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => context.go("/work"),
-          child: const Text("Go to MyWork"),
-        ),
+    );
+  }
+}
+
+class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const Center(
+        child: Text('About Me'),
+      ),
+    );
+  }
+}
+
+class SkillsPage extends StatelessWidget {
+  const SkillsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const Center(
+        child: Text('My Skills'),
+      ),
+    );
+  }
+}
+
+class ExperiencePage extends StatelessWidget {
+  const ExperiencePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const Center(
+        child: Text('My Experience'),
       ),
     );
   }
@@ -180,11 +283,34 @@ class MyWorkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Work'),
-      ),
       body: const Center(
         child: Text('Hello MyWork'),
+      ),
+    );
+  }
+}
+
+class ContactPage extends StatelessWidget {
+  const ContactPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const Center(
+        child: Text('Contact Me'),
+      ),
+    );
+  }
+}
+
+class GamesPage extends StatelessWidget {
+  const GamesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const Center(
+        child: Text('Bored?'),
       ),
     );
   }
