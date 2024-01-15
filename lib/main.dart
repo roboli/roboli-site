@@ -33,12 +33,13 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
     super.dispose();
   }
 
-  Widget _buildTab(String name, IconData iconData) {
+  Widget _buildTab(String name, IconData iconData, int index) {
     return RotatedBox(
       quarterTurns: -1,
-      child: Tab(
+      child: _SiteTab(
         icon: Icon(iconData),
-        text: name,
+        title: Text(name),
+        isExpanded: _tabController.index == index
       ),
     );
   }
@@ -57,46 +58,46 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          child: Row(
-            children: [
-              RotatedBox(
-                quarterTurns: 1,
-                child: TabBar(
-                  controller: _tabController,
-                  tabs: [
-                    _buildTab('Home', Icons.home),
-                    _buildTab('About', Icons.person),
-                    _buildTab('Skills', Icons.gamepad),
-                    _buildTab('Experience', Icons.work),
-                    _buildTab('My Work', Icons.palette_rounded),
-                    _buildTab('Contact', Icons.email),
-                    _buildTab('Bored?', Icons.flutter_dash),
-                  ],
-                  onTap: (index) {
-                    widget.navigationShell.goBranch(index);
-                  },
-                ),
-              ),
-              Expanded(
-                child: RotatedBox(
-                  quarterTurns: 1,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: _tabViews.map(
-                      (widget) {
-                        return RotatedBox(
-                          quarterTurns: 3,
-                          child: widget,
-                        );
-                    }).toList(),
-                  ),
-                )
-              ),
-            ],
+      child: Row(
+        children: [
+          RotatedBox(
+            quarterTurns: 1,
+            child: TabBar(
+              controller: _tabController,
+              labelPadding: EdgeInsets.zero,
+              isScrollable: true,
+              indicatorColor: Colors.transparent,
+              tabs: [
+                _buildTab('Home', Icons.home, 0),
+                _buildTab('About', Icons.person, 1),
+                _buildTab('Skills', Icons.gamepad, 2),
+                _buildTab('Experience', Icons.work, 3),
+                _buildTab('My Work', Icons.palette_rounded, 4),
+                _buildTab('Contact', Icons.email, 5),
+                _buildTab('Bored?', Icons.flutter_dash, 6),
+              ],
+              onTap: (index) {
+                widget.navigationShell.goBranch(index);
+              },
+            ),
           ),
-        )
-      );
-    }
+          Expanded(
+              child: RotatedBox(
+            quarterTurns: 1,
+            child: TabBarView(
+              controller: _tabController,
+              children: _tabViews.map((widget) {
+                return RotatedBox(
+                  quarterTurns: 3,
+                  child: widget,
+                );
+              }).toList(),
+            ),
+          )),
+        ],
+      ),
+    ));
+  }
 }
 
 final _router = GoRouter(
@@ -183,6 +184,84 @@ final _router = GoRouter(
     ),
   ],
 );
+
+class _SiteTab extends StatefulWidget {
+  const _SiteTab({
+    required this.title,
+    required this.icon,
+    required this.isExpanded,
+  });
+
+  final Text title;
+  final Icon icon;
+  final bool isExpanded;
+
+  @override
+  _SiteTabState createState() => _SiteTabState();
+}
+
+class _SiteTabState extends State<_SiteTab>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> _titleSizeAnimation;
+  late Animation<double> _titleFadeAnimation;
+  late Animation<double> _iconFadeAnimation;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _titleSizeAnimation = _controller.view;
+    _titleFadeAnimation = _controller.drive(CurveTween(curve: Curves.easeOut));
+    _iconFadeAnimation = _controller.drive(Tween<double>(begin: 0.6, end: 1));
+    if (widget.isExpanded) {
+      _controller.value = 1;
+    }
+  }
+
+  @override
+  void didUpdateWidget(_SiteTab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isExpanded) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 18),
+        FadeTransition(
+          opacity: _iconFadeAnimation,
+          child: widget.icon,
+        ),
+        const SizedBox(height: 12),
+        FadeTransition(
+          opacity: _titleFadeAnimation,
+          child: SizeTransition(
+            axis: Axis.vertical,
+            axisAlignment: -1,
+            sizeFactor: _titleSizeAnimation,
+            child: Center(child: ExcludeSemantics(child: widget.title)),
+          ),
+        ),
+        const SizedBox(height: 18),
+      ],
+    );
+  }
+}
 
 class SiteApp extends StatelessWidget {
   const SiteApp({super.key});
