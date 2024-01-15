@@ -7,8 +7,8 @@ void main() {
 
 class ScaffoldNavigationSideBar extends StatefulWidget {
   const ScaffoldNavigationSideBar({
-      required this.navigationShell,
-      Key? key,
+    required this.navigationShell,
+    Key? key,
   }) : super(key: key ?? const ValueKey<String>('ScaffoldNavigationSideBar'));
 
   final StatefulNavigationShell navigationShell;
@@ -17,7 +17,8 @@ class ScaffoldNavigationSideBar extends StatefulWidget {
   State<StatefulWidget> createState() => _ScaffoldNavigationSideBar();
 }
 
-class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar> with SingleTickerProviderStateMixin {
+class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -32,60 +33,63 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar> with S
     super.dispose();
   }
 
+  Widget _buildTab(String name, IconData iconData) {
+    return RotatedBox(
+      quarterTurns: -1,
+      child: Tab(
+        icon: Icon(iconData),
+        text: name,
+      ),
+    );
+  }
+
+  List<Widget> _tabViews = const [
+    HomePage(),
+    AboutPage(),
+    SkillsPage(),
+    ExperiencePage(),
+    MyWorkPage(),
+    ContactPage(),
+    GamesPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          child: Column(
+          child: Row(
             children: [
-              TabBar(
-                controller: _tabController,
-                tabs: [
-                  const Tab(
-                    icon: Icon(Icons.home),
-                    text: 'Home',
-                  ),
-                  const Tab(
-                    icon: Icon(Icons.person),
-                    text: 'About',
-                  ),
-                  const Tab(
-                    icon: Icon(Icons.gamepad),
-                    text: 'Skills',
-                  ),
-                  const Tab(
-                    icon: Icon(Icons.work),
-                    text: 'Experience',
-                  ),
-                  const Tab(
-                    icon: Icon(Icons.palette_rounded),
-                    text: 'My Work',
-                  ),
-                  const Tab(
-                    icon: Icon(Icons.email),
-                    text: 'Contact',
-                  ),
-                  const Tab(
-                    icon: Icon(Icons.flutter_dash),
-                    text: 'Bored?',
-                  ),
-                ],
-                onTap: (index) {
-                  widget.navigationShell.goBranch(index);
-                },
+              RotatedBox(
+                quarterTurns: 1,
+                child: TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    _buildTab('Home', Icons.home),
+                    _buildTab('About', Icons.person),
+                    _buildTab('Skills', Icons.gamepad),
+                    _buildTab('Experience', Icons.work),
+                    _buildTab('My Work', Icons.palette_rounded),
+                    _buildTab('Contact', Icons.email),
+                    _buildTab('Bored?', Icons.flutter_dash),
+                  ],
+                  onTap: (index) {
+                    widget.navigationShell.goBranch(index);
+                  },
+                ),
               ),
               Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    const HomePage(),
-                    const AboutPage(),
-                    const SkillsPage(),
-                    const ExperiencePage(),
-                    const MyWorkPage(),
-                    const ContactPage(),
-                    const GamesPage(),
-                  ],
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: _tabViews.map(
+                      (widget) {
+                        return RotatedBox(
+                          quarterTurns: 3,
+                          child: widget,
+                        );
+                    }).toList(),
+                  ),
                 )
               ),
             ],
@@ -179,7 +183,6 @@ final _router = GoRouter(
     ),
   ],
 );
-
 
 class SiteApp extends StatelessWidget {
   const SiteApp({super.key});
