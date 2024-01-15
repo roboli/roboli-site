@@ -6,90 +6,103 @@ void main() {
   runApp(const SiteApp());
 }
 
-class ScaffoldNavigationSideBar extends StatelessWidget {
+class ScaffoldNavigationSideBar extends StatefulWidget {
   const ScaffoldNavigationSideBar({
       required this.navigationShell,
-      required this.children,
       Key? key,
   }) : super(key: key ?? const ValueKey<String>('ScaffoldNavigationSideBar'));
 
   final StatefulNavigationShell navigationShell;
-  final List<Widget> children;
+
+  @override
+  State<StatefulWidget> createState() => _ScaffoldNavigationSideBar();
+}
+
+class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 7);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-            body: Row(
-          children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  const NavigationRailDestination(
+    return Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              TabBar(
+                controller: _tabController,
+                tabs: [
+                  const Tab(
                     icon: Icon(Icons.home),
-                    label: Text('Home'),
+                    text: 'Home',
                   ),
-                  const NavigationRailDestination(
+                  const Tab(
                     icon: Icon(Icons.person),
-                    label: Text('About'),
+                    text: 'About',
                   ),
-                  const NavigationRailDestination(
+                  const Tab(
                     icon: Icon(Icons.gamepad),
-                    label: Text('Skills'),
+                    text: 'Skills',
                   ),
-                  const NavigationRailDestination(
+                  const Tab(
                     icon: Icon(Icons.work),
-                    label: Text('Experience'),
+                    text: 'Experience',
                   ),
-                  const NavigationRailDestination(
+                  const Tab(
                     icon: Icon(Icons.palette_rounded),
-                    label: Text('My Work'),
+                    text: 'My Work',
                   ),
-                  const NavigationRailDestination(
+                  const Tab(
                     icon: Icon(Icons.email),
-                    label: Text('Contact'),
+                    text: 'Contact',
                   ),
-                  const NavigationRailDestination(
+                  const Tab(
                     icon: Icon(Icons.flutter_dash),
-                    label: Text('Bored?'),
+                    text: 'Bored?',
                   ),
                 ],
-                selectedIndex: navigationShell.currentIndex,
-                onDestinationSelected: (value) {
-                  navigationShell.goBranch(value);
+                onTap: (index) {
+                  widget.navigationShell.goBranch(index);
                 },
               ),
-            ),
-            Expanded(
-              child: AnimatedBranchContainer(
-                currentIndex: navigationShell.currentIndex,
-                children: children,
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    const HomePage(),
+                    const AboutPage(),
+                    const SkillsPage(),
+                    const ExperiencePage(),
+                    const MyWorkPage(),
+                    const ContactPage(),
+                    const GamesPage(),
+                  ],
+                )
               ),
-            ),
-          ],
-        ));
-      },
-    );
-  }
+            ],
+          ),
+        )
+      );
+    }
 }
 
 final _router = GoRouter(
   routes: [
-    StatefulShellRoute(
+    StatefulShellRoute.indexedStack(
       builder: (BuildContext context, GoRouterState state,
           StatefulNavigationShell navigationShell) {
-        return navigationShell;
-      },
-      navigatorContainerBuilder: (
-        BuildContext context,
-        StatefulNavigationShell navigationShell,
-        List<Widget> children
-      ) {
         return ScaffoldNavigationSideBar(
           navigationShell: navigationShell,
-          children: children,
         );
       },
       branches: <StatefulShellBranch>[
@@ -168,45 +181,6 @@ final _router = GoRouter(
   ],
 );
 
-// Example from:
-// https://github.com/flutter/packages/blob/0744fe6fdb31933d05d11699e7f44e1dd2c63e48/packages/go_router/example/lib/others/custom_stateful_shell_route.dart#L227
-class AnimatedBranchContainer extends StatelessWidget {
-  /// Creates a AnimatedBranchContainer
-  const AnimatedBranchContainer(
-      {super.key, required this.currentIndex, required this.children});
-
-  /// The index (in [children]) of the branch Navigator to display.
-  final int currentIndex;
-
-  /// The children (branch Navigators) to display in this container.
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-        children: children.mapIndexed(
-      (int index, Widget navigator) {
-        return AnimatedScale(
-          scale: index == currentIndex ? 1 : 1.5,
-          duration: const Duration(milliseconds: 400),
-          child: AnimatedOpacity(
-            opacity: index == currentIndex ? 1 : 0,
-            duration: const Duration(milliseconds: 400),
-            child: _branchNavigatorWrapper(index, navigator),
-          ),
-        );
-      },
-    ).toList());
-  }
-
-  Widget _branchNavigatorWrapper(int index, Widget navigator) => IgnorePointer(
-        ignoring: index != currentIndex,
-        child: TickerMode(
-          enabled: index == currentIndex,
-          child: navigator,
-        ),
-      );
-}
 
 class SiteApp extends StatelessWidget {
   const SiteApp({super.key});
