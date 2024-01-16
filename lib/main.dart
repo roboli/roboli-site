@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const SiteApp());
@@ -38,7 +39,12 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
       quarterTurns: -1,
       child: _SiteTab(
         icon: Icon(iconData),
-        title: Text(name),
+        title: Text(
+          name,
+          style: GoogleFonts.anton(
+            textStyle: const TextStyle(letterSpacing: 1.1),
+          ),
+        ),
         isExpanded: _tabController.index == index
       ),
     );
@@ -72,13 +78,13 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
                 isScrollable: true,
                 indicatorColor: Colors.transparent,
                 tabs: [
-                  _buildTab('Home', Icons.home, 0),
-                  _buildTab('About', Icons.person, 1),
-                  _buildTab('Skills', Icons.gamepad, 2),
-                  _buildTab('Experience', Icons.work, 3),
-                  _buildTab('My Work', Icons.palette_rounded, 4),
-                  _buildTab('Contact', Icons.email, 5),
-                  _buildTab('Bored?', Icons.flutter_dash, 6),
+                  _buildTab('HOME', Icons.home, 0),
+                  _buildTab('ABOUT', Icons.person, 1),
+                  _buildTab('SKILLS', Icons.gamepad, 2),
+                  _buildTab('EXPERIENCE', Icons.work, 3),
+                  _buildTab('MY WORK', Icons.palette_rounded, 4),
+                  _buildTab('CONTACT', Icons.email, 5),
+                  _buildTab('BORED?', Icons.flutter_dash, 6),
                 ],
                 onTap: (index) {
                   widget.navigationShell.goBranch(index);
@@ -274,6 +280,8 @@ class SiteApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return MaterialApp.router(
       title: 'Roboli\'s Site',
       theme: ThemeData(
@@ -286,9 +294,8 @@ class SiteApp extends StatelessWidget {
           dividerColor: Colors.transparent,
           unselectedLabelColor: Colors.white,
         ),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(),
-          bodyMedium: TextStyle(),
+        textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
+          bodyMedium: GoogleFonts.oswald(textStyle: textTheme.bodyMedium),
         ).apply(bodyColor: Colors.white),
       ),
       routerConfig: _router,
