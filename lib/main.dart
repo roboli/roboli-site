@@ -60,25 +60,30 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
         body: SafeArea(
       child: Row(
         children: [
-          RotatedBox(
-            quarterTurns: 1,
-            child: TabBar(
-              controller: _tabController,
-              labelPadding: EdgeInsets.zero,
-              isScrollable: true,
-              indicatorColor: Colors.transparent,
-              tabs: [
-                _buildTab('Home', Icons.home, 0),
-                _buildTab('About', Icons.person, 1),
-                _buildTab('Skills', Icons.gamepad, 2),
-                _buildTab('Experience', Icons.work, 3),
-                _buildTab('My Work', Icons.palette_rounded, 4),
-                _buildTab('Contact', Icons.email, 5),
-                _buildTab('Bored?', Icons.flutter_dash, 6),
-              ],
-              onTap: (index) {
-                widget.navigationShell.goBranch(index);
-              },
+          Container(
+            width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
+            alignment: Alignment.topCenter,
+            padding: const EdgeInsets.symmetric(vertical: 32),
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: TabBar(
+                controller: _tabController,
+                labelPadding: EdgeInsets.zero,
+                isScrollable: true,
+                indicatorColor: Colors.transparent,
+                tabs: [
+                  _buildTab('Home', Icons.home, 0),
+                  _buildTab('About', Icons.person, 1),
+                  _buildTab('Skills', Icons.gamepad, 2),
+                  _buildTab('Experience', Icons.work, 3),
+                  _buildTab('My Work', Icons.palette_rounded, 4),
+                  _buildTab('Contact', Icons.email, 5),
+                  _buildTab('Bored?', Icons.flutter_dash, 6),
+                ],
+                onTap: (index) {
+                  widget.navigationShell.goBranch(index);
+                },
+              ),
             ),
           ),
           Expanded(
@@ -272,8 +277,19 @@ class SiteApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Roboli\'s Site',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pink,
+        ),
         useMaterial3: true,
+        scaffoldBackgroundColor: Colors.black87,
+        tabBarTheme: const TabBarTheme(
+          dividerColor: Colors.transparent,
+          unselectedLabelColor: Colors.white,
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(),
+          bodyMedium: TextStyle(),
+        ).apply(bodyColor: Colors.white),
       ),
       routerConfig: _router,
     );
