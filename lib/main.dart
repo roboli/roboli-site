@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:roboli_site/home_page.dart';
 
 void main() {
   runApp(const SiteApp());
@@ -299,19 +300,6 @@ class SiteApp extends StatelessWidget {
         ).apply(bodyColor: Colors.white),
       ),
       routerConfig: _router,
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('Welcome'),
-      ),
     );
   }
 }
