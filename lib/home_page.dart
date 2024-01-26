@@ -80,18 +80,19 @@ class _HomePageState extends State<HomePage>
                 animation: animation,
                 segments: [
                   Segment(
-                    color: Colors.yellow,
+                    color: Colors.green,
                     start: random.nextDouble() * twoPi,
-                    size: twoPi / 4,
+                    size: twoPi * 0.875,
                   ),
                   Segment(
                       color: Colors.blue,
                       start: random.nextDouble() * twoPi,
-                      size: 3 * math.pi / 4),
+                      size: twoPi * 0.625
+                    ),
                   Segment(
-                    color: Colors.green,
+                    color: Colors.amberAccent,
                     start: random.nextDouble() * twoPi,
-                    size: twoPi / 2,
+                    size: twoPi * 0.375,
                   )
                 ],
               ),
