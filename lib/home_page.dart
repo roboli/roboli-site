@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage>
             constraints: BoxConstraints.tight(const Size(500, 500)),
             child: MouseRegion(
               onHover: _onMouseHover(size),
-              child: _AnimatedRallyPieChart(
+              child: _AnimatedProfilePic(
                 animation: animation,
                 segments: [
                   Segment(
@@ -104,8 +104,8 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-class _AnimatedRallyPieChart extends AnimatedWidget {
-  const _AnimatedRallyPieChart({
+class _AnimatedProfilePic extends AnimatedWidget {
+  const _AnimatedProfilePic({
     required this.animation,
     required this.segments,
   }) : super(listenable: animation);
@@ -120,7 +120,7 @@ class _AnimatedRallyPieChart extends AnimatedWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       return DecoratedBox(
-        decoration: _RallyPieChartOutlineDecoration(
+        decoration: _ProfilePicOutlineDecoration(
           maxFraction: animation.value,
           segments: segments,
         ),
@@ -148,8 +148,8 @@ class _AnimatedRallyPieChart extends AnimatedWidget {
   }
 }
 
-class _RallyPieChartOutlineDecoration extends Decoration {
-  const _RallyPieChartOutlineDecoration({
+class _ProfilePicOutlineDecoration extends Decoration {
+  const _ProfilePicOutlineDecoration({
     required this.maxFraction,
     required this.segments,
   });
@@ -159,15 +159,15 @@ class _RallyPieChartOutlineDecoration extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _RallyPieChartOutlineBoxPainter(
+    return _ProfilePicOutlineBoxPainter(
       maxFraction: maxFraction,
       segments: segments,
     );
   }
 }
 
-class _RallyPieChartOutlineBoxPainter extends BoxPainter {
-  _RallyPieChartOutlineBoxPainter({
+class _ProfilePicOutlineBoxPainter extends BoxPainter {
+  _ProfilePicOutlineBoxPainter({
     required this.maxFraction,
     required this.segments,
   });
