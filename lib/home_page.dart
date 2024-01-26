@@ -116,7 +116,6 @@ class _AnimatedProfilePic extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final ratio = size.width / size.height;
 
     return LayoutBuilder(builder: (context, constraints) {
       return DecoratedBox(
