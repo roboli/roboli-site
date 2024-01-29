@@ -1,7 +1,9 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,9 +22,14 @@ class _HomePageState extends State<HomePage>
   static const twoPi = 2 * math.pi;
   static const lapse = 350;
 
+  ui.Image? image;
+
   @override
   void initState() {
     super.initState();
+
+    loadImage();
+
     controller = AnimationController(vsync: this, upperBound: twoPi);
     moveBetween = Tween<double>(begin: pos, end: twoPi);
     animation = moveBetween.animate(controller);
@@ -61,6 +68,16 @@ class _HomePageState extends State<HomePage>
     return handleHover;
   }
 
+  void loadImage() async {
+    final data = await rootBundle.load('assets/roberto.png');
+    final bytes = data.buffer.asUint8List();
+    final image = await decodeImageFromList(bytes);
+
+    setState(() {
+      this.image = image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -87,14 +104,14 @@ class _HomePageState extends State<HomePage>
                   Segment(
                       color: Colors.blue,
                       start: random.nextDouble() * twoPi,
-                      size: twoPi * 0.625
-                    ),
+                      size: twoPi * 0.625),
                   Segment(
                     color: Colors.amberAccent,
                     start: random.nextDouble() * twoPi,
                     size: twoPi * 0.375,
                   )
                 ],
+                image: image,
               ),
             ),
           ),
@@ -105,43 +122,20 @@ class _HomePageState extends State<HomePage>
 }
 
 class _AnimatedProfilePic extends AnimatedWidget {
-  const _AnimatedProfilePic({
-    required this.animation,
-    required this.segments,
-  }) : super(listenable: animation);
+  const _AnimatedProfilePic(
+      {required this.animation, required this.segments, this.image})
+      : super(listenable: animation);
 
   final Animation<double> animation;
   final List<Segment> segments;
+  final ui.Image? image;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return LayoutBuilder(builder: (context, constraints) {
       return DecoratedBox(
         decoration: _ProfilePicOutlineDecoration(
-          maxFraction: animation.value,
-          segments: segments,
-        ),
-        child: Container(
-          height: constraints.maxHeight,
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: size.width * 0.26,
-                height: size.height * 0.52,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      image: AssetImage('assets/roberto.png'),
-                      fit: BoxFit.fill),
-                ),
-              ),
-            ],
-          ),
-        ),
+            maxFraction: animation.value, segments: segments, image: image),
       );
     });
   }
@@ -151,17 +145,17 @@ class _ProfilePicOutlineDecoration extends Decoration {
   const _ProfilePicOutlineDecoration({
     required this.maxFraction,
     required this.segments,
+    this.image,
   });
 
   final double maxFraction;
   final List<Segment> segments;
+  final ui.Image? image;
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return _ProfilePicOutlineBoxPainter(
-      maxFraction: maxFraction,
-      segments: segments,
-    );
+        maxFraction: maxFraction, segments: segments, image: image);
   }
 }
 
@@ -169,10 +163,12 @@ class _ProfilePicOutlineBoxPainter extends BoxPainter {
   _ProfilePicOutlineBoxPainter({
     required this.maxFraction,
     required this.segments,
+    this.image,
   });
 
   final double maxFraction;
   final List<Segment> segments;
+  final ui.Image? image;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
@@ -183,11 +179,6 @@ class _ProfilePicOutlineBoxPainter extends BoxPainter {
           configuration.size!.height / 2,
         ) /
         2;
-
-    final innerRect = Rect.fromCircle(
-      center: configuration.size!.center(offset),
-      radius: outerRadius,
-    );
 
     double i = 0;
 
@@ -208,10 +199,9 @@ class _ProfilePicOutlineBoxPainter extends BoxPainter {
       i += 10;
     }
 
-    // Paint a smaller inner circle to cover the painted arcs, so they are
-    // display as segments.
-    final bgPaint = Paint()..color = Colors.transparent;
-    canvas.drawArc(innerRect, 0, 2 * math.pi, true, bgPaint);
+    if (image != null) {
+      canvas.drawImage(image!, configuration.size!.center(offset), Paint());
+    }
   }
 }
 
