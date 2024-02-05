@@ -15,25 +15,19 @@ class AnimatedProfilePic extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 1,
-      child: Container(
-        color: Colors.pink,
-        child: DecoratedBox(
-          decoration: _ProfilePicOutlineDecoration(
-            maxFraction: animation.value,
-            segments: segments,
-          ),
-          child: FractionallySizedBox(
-            widthFactor: 0.2,
-            heightFactor: 0.5,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: const DecorationImage(
-                    image: AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
-              ),
-            ),
+    return Container(
+      color: Colors.pink,
+      child: DecoratedBox(
+        decoration: _ProfilePicOutlineDecoration(
+          maxFraction: animation.value,
+          segments: segments,
+        ),
+        child: Container(
+          margin: const EdgeInsets.all(220),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: const DecorationImage(
+                image: AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
           ),
         ),
       ),
