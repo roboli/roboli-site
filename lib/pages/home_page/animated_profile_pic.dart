@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-import '../helpers/segments.dart';
+import '../../helpers/segments.dart';
 
 class AnimatedProfilePic extends AnimatedWidget {
   const AnimatedProfilePic({

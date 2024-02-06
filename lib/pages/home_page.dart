@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 
-import 'helpers/segments.dart';
+import '../helpers/segments.dart';
 import 'home_page/animated_profile_pic.dart';
 
 class HomePage extends StatefulWidget {
