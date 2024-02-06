@@ -3,6 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:roboli_site/pages/home_page.dart';
 
+import 'pages/about_page.dart';
+import 'pages/contact_page.dart';
+import 'pages/experience_page.dart';
+import 'pages/games_page.dart';
+import 'pages/my_work_page.dart';
+import 'pages/skills_page.dart';
+
 void main() {
   runApp(const SiteApp());
 }
@@ -300,84 +307,6 @@ class SiteApp extends StatelessWidget {
         ).apply(bodyColor: Colors.white),
       ),
       routerConfig: _router,
-    );
-  }
-}
-
-class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('About Me'),
-      ),
-    );
-  }
-}
-
-class SkillsPage extends StatelessWidget {
-  const SkillsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('My Skills'),
-      ),
-    );
-  }
-}
-
-class ExperiencePage extends StatelessWidget {
-  const ExperiencePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('My Experience'),
-      ),
-    );
-  }
-}
-
-class MyWorkPage extends StatelessWidget {
-  const MyWorkPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('Hello MyWork'),
-      ),
-    );
-  }
-}
-
-class ContactPage extends StatelessWidget {
-  const ContactPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('Contact Me'),
-      ),
-    );
-  }
-}
-
-class GamesPage extends StatelessWidget {
-  const GamesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('Bored?'),
-      ),
     );
   }
 }
