@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SidePanel extends StatefulWidget {
-  const SidePanel({super.key, required this.child, required this.index});
+class MainPanel extends StatefulWidget {
+  const MainPanel({super.key, required this.child, required this.index});
 
   final Widget child;
   final int index;
 
   @override
-  State<SidePanel> createState() => _SidePanelState();
+  State<StatefulWidget> createState() => _MainPanelState();
 }
 
-class _SidePanelState extends State<SidePanel>
+class _MainPanelState extends State<MainPanel>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
@@ -27,7 +27,7 @@ class _SidePanelState extends State<SidePanel>
   }
 
   @override
-  void didUpdateWidget(SidePanel oldWidget) {
+  void didUpdateWidget(MainPanel oldWidget) {
     super.didUpdateWidget(oldWidget);
     _controller.reset();
     _controller.forward();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:roboli_site/router/side_panel.dart';
+import 'package:roboli_site/router/main_panel.dart';
 
 class ScaffoldNavigationAppBar extends StatefulWidget {
   const ScaffoldNavigationAppBar({
@@ -60,7 +60,7 @@ class _ScaffoldNavigationAppBar extends State<ScaffoldNavigationAppBar>
         ),
       ),
       body: SafeArea(
-        child: SidePanel(
+        child: MainPanel(
           index: _tabController.index,
           child: widget.navigationShell,
         ),

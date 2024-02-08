@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:roboli_site/router/side_panel.dart';
+import 'package:roboli_site/router/main_panel.dart';
 
 import 'site_tab.dart';
 
@@ -81,7 +81,7 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
             ),
           ),
           Expanded(
-            child: SidePanel(
+            child: MainPanel(
               index: _tabController.index,
               child: widget.navigationShell,
               )
