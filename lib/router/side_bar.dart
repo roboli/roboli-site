@@ -3,13 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'site_tab.dart';
-import '../pages/home_page.dart';
-import '../pages/about_page.dart';
-import '../pages/contact_page.dart';
-import '../pages/experience_page.dart';
-import '../pages/games_page.dart';
-import '../pages/my_work_page.dart';
-import '../pages/skills_page.dart';
 
 class ScaffoldNavigationSideBar extends StatefulWidget {
   const ScaffoldNavigationSideBar({
@@ -37,7 +30,7 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
+   }
 
   Widget _buildTab(String name, IconData iconData, int index) {
     return RotatedBox(
@@ -53,16 +46,6 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
           isExpanded: _tabController.index == index),
     );
   }
-
-  List<Widget> _tabViews = const [
-    HomePage(),
-    AboutPage(),
-    SkillsPage(),
-    ExperiencePage(),
-    MyWorkPage(),
-    ContactPage(),
-    GamesPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -97,18 +80,8 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
             ),
           ),
           Expanded(
-              child: RotatedBox(
-            quarterTurns: 1,
-            child: TabBarView(
-              controller: _tabController,
-              children: _tabViews.map((widget) {
-                return RotatedBox(
-                  quarterTurns: 3,
-                  child: widget,
-                );
-              }).toList(),
+              child: widget.navigationShell,
             ),
-          )),
         ],
       ),
     ));
