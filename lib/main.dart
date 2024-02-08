@@ -14,23 +14,27 @@ class SiteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return MaterialApp.router(
-      title: 'Roboli\'s Site',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink,
+    return LayoutBuilder(builder: (context, constraints) {
+      return MaterialApp.router(
+        title: 'Roboli\'s Site',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.pink,
+          ),
+          useMaterial3: true,
+          scaffoldBackgroundColor: Colors.black87,
+          tabBarTheme: const TabBarTheme(
+            dividerColor: Colors.transparent,
+            unselectedLabelColor: Colors.white,
+          ),
+          textTheme: GoogleFonts.latoTextTheme(textTheme)
+              .copyWith(
+                bodyMedium: GoogleFonts.oswald(textStyle: textTheme.bodyMedium),
+              )
+              .apply(bodyColor: Colors.white),
         ),
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.black87,
-        tabBarTheme: const TabBarTheme(
-          dividerColor: Colors.transparent,
-          unselectedLabelColor: Colors.white,
-        ),
-        textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
-          bodyMedium: GoogleFonts.oswald(textStyle: textTheme.bodyMedium),
-        ).apply(bodyColor: Colors.white),
-      ),
-      routerConfig: router,
-    );
+        routerConfig: buildRouter(constraints.maxWidth),
+      );
+    });
   }
 }

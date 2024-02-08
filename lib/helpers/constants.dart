@@ -1,0 +1,1 @@
+const screenBreakpoint = 780;
