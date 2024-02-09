@@ -15,23 +15,31 @@ class AnimatedProfilePic extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.pink,
-      child: DecoratedBox(
-        decoration: _ProfilePicOutlineDecoration(
-          maxFraction: animation.value,
-          segments: segments,
-        ),
-        child: Container(
-          margin: const EdgeInsets.all(220),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: const DecorationImage(
-                image: AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
+    return LayoutBuilder(builder: (context, constraints) {
+      final area = (math.min(
+          constraints.maxWidth / 2,
+          constraints.maxHeight / 2,
+        ) /
+        2) + 10;
+
+      return Container(
+        color: Colors.pink,
+        child: DecoratedBox(
+          decoration: _ProfilePicOutlineDecoration(
+            maxFraction: animation.value,
+            segments: segments,
+          ),
+          child: Container(
+            margin: EdgeInsets.all(area),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: const DecorationImage(
+                  image: AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
