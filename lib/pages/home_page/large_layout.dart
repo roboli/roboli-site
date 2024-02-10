@@ -69,44 +69,72 @@ class _LargeLayoutState extends State<LargeLayout>
     final size = MediaQuery.of(context).size;
     final random = math.Random();
 
-    return Scaffold(
-      body: Center(
-        child: MouseRegion(
-          onHover: _onMouseHover(size),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(height: 20,),
-              Expanded(
-                child: AnimatedProfilePic(
-                  animation: animation,
-                  segments: [
-                    Segment(
+    return LayoutBuilder(builder: (context, constraints) {
+      final radius = math.min(
+            constraints.maxWidth / 2,
+            constraints.maxHeight / 2,
+          ) /
+          2;
+
+      return Scaffold(
+        body: Center(
+          child: MouseRegion(
+            onHover: _onMouseHover(size),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: AnimatedProfilePic(
+                    animation: animation,
+                    segment: Segment(
                       color: Colors.green,
                       start: random.nextDouble() * twoPi,
                       size: twoPi * 0.875,
+                      radius: radius + 20
                     ),
-                    Segment(
-                        color: Colors.blue,
+                    child: AnimatedProfilePic(
+                      animation: animation,
+                      segment: Segment(
+                        color: Colors.lightBlue,
                         start: random.nextDouble() * twoPi,
-                        size: twoPi * 0.625),
-                    Segment(
-                      color: Colors.amberAccent,
-                      start: random.nextDouble() * twoPi,
-                      size: twoPi * 0.375,
-                    )
-                  ],
+                        size: twoPi * 0.625,
+                        radius: radius + 10,
+                      ),
+                      child: AnimatedProfilePic(
+                        animation: animation,
+                        segment: Segment(
+                          color: Colors.amberAccent,
+                          start: random.nextDouble() * twoPi,
+                          size: twoPi * 0.375,
+                          radius: radius,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.all(radius - 60),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                              image: AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
+                          ),
+                        ),
+                    ),
+                    ),
+                  ),
                 ),
-              ),
-              const Text(
-                'Hi there! Welcome to Roberto Oliveros\' home page.',
-                style: TextStyle(fontSize: 30),
-              ),
-              const SizedBox(height: 90,),
-            ],
+                const Text(
+                  'Hi there! Welcome to Roberto Oliveros\' home page.',
+                  style: TextStyle(fontSize: 30),
+                ),
+                const SizedBox(
+                  height: 90,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

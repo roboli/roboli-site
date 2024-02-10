@@ -1,62 +1,42 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../helpers/segments.dart';
 
 class AnimatedProfilePic extends AnimatedWidget {
-  const AnimatedProfilePic({
-      super.key,
-      required this.animation,
-      required this.segments,
-  }) : super(listenable: animation);
+  const AnimatedProfilePic(
+      {super.key, required this.animation, required this.segment, this.child})
+      : super(listenable: animation);
 
   final Animation<double> animation;
-  final List<Segment> segments;
+  final Segment segment;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final area = (math.min(
-          constraints.maxWidth / 2,
-          constraints.maxHeight / 2,
-        ) /
-        2) + 10;
-
-      return Container(
-        color: Colors.pink,
-        child: DecoratedBox(
-          decoration: _ProfilePicOutlineDecoration(
-            maxFraction: animation.value,
-            segments: segments,
-          ),
-          child: Container(
-            margin: EdgeInsets.all(area),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: const DecorationImage(
-                  image: AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
-            ),
-          ),
-        ),
-      );
-    });
+    return DecoratedBox(
+      decoration: _ProfilePicOutlineDecoration(
+        maxFraction: animation.value,
+        segment: segment,
+      ),
+      child: child,
+    );
   }
 }
 
 class _ProfilePicOutlineDecoration extends Decoration {
   const _ProfilePicOutlineDecoration({
     required this.maxFraction,
-    required this.segments,
+    required this.segment,
   });
 
   final double maxFraction;
-  final List<Segment> segments;
+  final Segment segment;
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return _ProfilePicOutlineBoxPainter(
       maxFraction: maxFraction,
-      segments: segments,
+      segment: segment,
     );
   }
 }
@@ -64,49 +44,23 @@ class _ProfilePicOutlineDecoration extends Decoration {
 class _ProfilePicOutlineBoxPainter extends BoxPainter {
   _ProfilePicOutlineBoxPainter({
     required this.maxFraction,
-    required this.segments,
+    required this.segment,
   });
 
   final double maxFraction;
-  final List<Segment> segments;
+  final Segment segment;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    // Create two padded reacts to draw arcs in: one for colored arcs and one for
-    // inner bg arc.
-    final outerRadius = math.min(
-          configuration.size!.width / 2,
-          configuration.size!.height / 2,
-        ) /
-        2;
+    final segmentRect = Rect.fromCircle(
+        center: configuration.size!.center(offset), radius: segment.radius);
 
-    final innerRect = Rect.fromCircle(
-      center: configuration.size!.center(offset),
-      radius: outerRadius,
-    );
+    final paint = Paint()
+      ..color = segment.color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8.0;
 
-    double i = 0;
-
-    for (final segment in segments) {
-      final segmentRect = Rect.fromCircle(
-        center: configuration.size!.center(offset),
-        radius: (outerRadius + i),
-      );
-
-      final paint = Paint()
-        ..color = segment.color
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 8.0;
-
-      canvas.drawArc(
-          segmentRect, maxFraction + segment.start, segment.size, false, paint);
-
-      i += 10;
-    }
-
-    // Paint a smaller inner circle to cover the painted arcs, so they are
-    // display as segments.
-    final bgPaint = Paint()..color = Colors.transparent;
-    canvas.drawArc(innerRect, 0, 2 * math.pi, true, bgPaint);
+    canvas.drawArc(
+        segmentRect, maxFraction + segment.start, segment.size, false, paint);
   }
 }
