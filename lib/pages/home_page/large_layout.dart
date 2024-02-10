@@ -16,8 +16,13 @@ class LargeLayout extends StatefulWidget {
 class _LargeLayoutState extends State<LargeLayout>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  late Animation<double> animation;
-  late Tween<double> moveBetween;
+
+  late Animation<double> animationF;
+  late Tween<double> moveForward;
+
+  late Animation<double> animationB;
+  late Tween<double> moveBackward;
+
   double pos = 0;
 
   static const twoPi = 2 * math.pi;
@@ -27,8 +32,12 @@ class _LargeLayoutState extends State<LargeLayout>
   void initState() {
     super.initState();
     controller = AnimationController(vsync: this, upperBound: twoPi);
-    moveBetween = Tween<double>(begin: pos, end: twoPi);
-    animation = moveBetween.animate(controller);
+
+    moveForward = Tween<double>(begin: pos, end: twoPi);
+    animationF = moveForward.animate(controller);
+
+    moveBackward = Tween<double>(begin: pos, end: twoPi);
+    animationB = moveBackward.animate(controller);
   }
 
   @override
@@ -48,8 +57,11 @@ class _LargeLayoutState extends State<LargeLayout>
         final end = angle + math.pi;
         var tweenEnd = (pos > end) ? (twoPi + end) : end;
 
-        moveBetween.begin = pos;
-        moveBetween.end = tweenEnd;
+        moveForward.begin = pos;
+        moveForward.end = end;
+
+        moveBackward.begin = pos;
+        moveBackward.end = -tweenEnd;
 
         const spring = SpringDescription(mass: 1, stiffness: 60, damping: 10);
         final simulation =
@@ -88,7 +100,7 @@ class _LargeLayoutState extends State<LargeLayout>
                 ),
                 Expanded(
                   child: AnimatedProfilePic(
-                    animation: animation,
+                    animation: animationF,
                     segment: Segment(
                       color: Colors.green,
                       start: random.nextDouble() * twoPi,
@@ -96,7 +108,7 @@ class _LargeLayoutState extends State<LargeLayout>
                       radius: radius + 20
                     ),
                     child: AnimatedProfilePic(
-                      animation: animation,
+                      animation: animationB,
                       segment: Segment(
                         color: Colors.lightBlue,
                         start: random.nextDouble() * twoPi,
@@ -104,11 +116,11 @@ class _LargeLayoutState extends State<LargeLayout>
                         radius: radius + 10,
                       ),
                       child: AnimatedProfilePic(
-                        animation: animation,
+                        animation: animationF,
                         segment: Segment(
                           color: Colors.amberAccent,
                           start: random.nextDouble() * twoPi,
-                          size: twoPi * 0.375,
+                          size: twoPi * 0.625,
                           radius: radius,
                         ),
                         child: Container(
