@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roboli_site/helpers/constants.dart';
 
 class SkillsDisplay extends StatefulWidget {
@@ -24,17 +25,21 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            OutlinedButton(
+            IconButton(
               onPressed: () => changeSkill(0),
-              child: const Text('Clojure'),
+              icon: SvgPicture.asset('assets/icons/clojure-dark-green-icon.svg'),
             ),
-            OutlinedButton(
+            IconButton(
               onPressed: () => changeSkill(1),
-              child: const Text('Dart'),
+              icon: const FlutterLogo(size: 120,)
             ),
-            OutlinedButton(
+            IconButton(
               onPressed: () => changeSkill(2),
-              child: const Text('JS')
+              icon: SizedBox(
+                width: 120,
+                height: 120,
+                child: SvgPicture.asset('assets/icons/Unofficial_JavaScript_logo_2.svg')
+              ),
             ),
           ],
         ),
