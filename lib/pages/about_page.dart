@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roboli_site/helpers/constants.dart';
+import 'package:roboli_site/pages/about_page/skills_display.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -34,16 +35,12 @@ class AboutPage extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text('Skills'),
-                  SizedBox(height: 50,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('Clojure'),
-                      Text('Dart'),
-                      Text('JS')
-                    ],
+                  Text(
+                    'Skills',
+                    style: TextStyle(fontSize: 20,),
                   ),
+                  SizedBox(height: 50,),
+                  SkillsDisplay(),
                 ],
               ),
             ),
