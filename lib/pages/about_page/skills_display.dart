@@ -10,11 +10,26 @@ class SkillsDisplay extends StatefulWidget {
 }
 
 class _SkillsDisplayState extends State<SkillsDisplay> {
-  int skill = 0;
+  String stack = myClojure;
 
   void changeSkill(int index) {
+    var text = '';
+
+    switch (index) {
+      case 0:
+        text = myClojure;
+        break;
+
+      case 1:
+        text = myDart;
+        break;
+
+      default:
+        text = myJS;
+    }
+
     setState(() {
-      skill = index;
+      stack = text;
     });
   }
 
@@ -27,11 +42,15 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
           children: [
             IconButton(
               onPressed: () => changeSkill(0),
-              icon: SvgPicture.asset('assets/icons/clojure-dark-green-icon.svg'),
+              icon: SizedBox(
+                width: 180,
+                height: 180,
+                child: SvgPicture.asset('assets/icons/clojure-dark-green-icon.svg')
+              ),
             ),
             IconButton(
               onPressed: () => changeSkill(1),
-              icon: const FlutterLogo(size: 120,)
+              icon: const FlutterLogo(size: 120,),
             ),
             IconButton(
               onPressed: () => changeSkill(2),
@@ -44,37 +63,21 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.all(50),
-          child: Builder(builder: (BuildContext context) {
-            switch (skill) {
-              case 0:
-                return const Text(
-                  myClojure,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
-                );
-
-              case 1:
-                return const Text(
-                  myDart,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
-                );
-
-              default:
-                return const Text(
-                  myJS,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey
-                  ),
-                );
-            }
-          }),
+          padding: const EdgeInsets.all(8.0),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(scale: animation, child: child);
+            },
+            child: Text(
+              stack,
+              key: ValueKey<String>(stack),
+              style: const TextStyle(
+                fontSize: 15,
+                color: Colors.grey
+              ),
+            ),
+          ),
         )
       ],
     );
