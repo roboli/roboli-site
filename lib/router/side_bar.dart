@@ -24,7 +24,7 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 7);
+    _tabController = TabController(vsync: this, length: 6);
   }
 
   @override
@@ -68,11 +68,10 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
                 tabs: [
                   _buildTab('HOME', Icons.home, 0),
                   _buildTab('ABOUT', Icons.person, 1),
-                  _buildTab('SKILLS', Icons.gamepad, 2),
-                  _buildTab('EXPERIENCE', Icons.work, 3),
-                  _buildTab('MY WORK', Icons.palette_rounded, 4),
-                  _buildTab('CONTACT', Icons.email, 5),
-                  _buildTab('BORED?', Icons.flutter_dash, 6),
+                  _buildTab('EXPERIENCE', Icons.work, 2),
+                  _buildTab('MY WORK', Icons.palette_rounded, 3),
+                  _buildTab('CONTACT', Icons.email, 4),
+                  _buildTab('BORED?', Icons.flutter_dash, 5),
                 ],
                 onTap: (index) {
                   widget.navigationShell.goBranch(index);

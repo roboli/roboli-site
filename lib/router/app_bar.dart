@@ -48,7 +48,6 @@ class _ScaffoldNavigationAppBar extends State<ScaffoldNavigationAppBar>
           tabs: [
             _buildTab('HOME', Icons.home),
             _buildTab('ABOUT', Icons.person),
-            _buildTab('SKILLS', Icons.gamepad),
             _buildTab('EXPERIENCE', Icons.work),
             _buildTab('MY WORK', Icons.palette_rounded),
             _buildTab('CONTACT', Icons.email),

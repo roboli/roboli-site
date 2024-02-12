@@ -10,7 +10,6 @@ import '../pages/contact_page.dart';
 import '../pages/experience_page.dart';
 import '../pages/games_page.dart';
 import '../pages/my_work_page.dart';
-import '../pages/skills_page.dart';
 
 GoRouter buildRouter(double screenSize) {
   return GoRouter(
@@ -45,16 +44,6 @@ GoRouter buildRouter(double screenSize) {
                 path: '/about',
                 builder: (BuildContext context, GoRouterState state) {
                   return const AboutPage();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/skills',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const SkillsPage();
                 },
               ),
             ],
