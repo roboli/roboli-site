@@ -36,7 +36,7 @@ class AboutPage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Skills',
+                    'My Stack',
                     style: TextStyle(fontSize: 20,),
                   ),
                   SizedBox(height: 50,),

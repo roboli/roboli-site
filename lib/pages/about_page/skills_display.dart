@@ -48,13 +48,31 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
           child: Builder(builder: (BuildContext context) {
             switch (skill) {
               case 0:
-                return const Text(myClojure);
+                return const Text(
+                  myClojure,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                  ),
+                );
 
               case 1:
-                return const Text(myDart);
+                return const Text(
+                  myDart,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                  ),
+                );
 
               default:
-                return const Text(myJS);
+                return const Text(
+                  myJS,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey
+                  ),
+                );
             }
           }),
         )
