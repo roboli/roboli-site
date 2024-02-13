@@ -31,6 +31,9 @@ class SiteApp extends StatelessWidget {
               bodyMedium: GoogleFonts.oswald(textStyle: textTheme.bodyMedium),
             )
             .apply(bodyColor: Colors.white),
+        scrollbarTheme: const ScrollbarThemeData().copyWith(
+          thumbColor: MaterialStateProperty.all(Colors.grey[900]),
+        ),
       ),
       routerConfig: router,
     );
