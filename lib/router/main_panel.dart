@@ -29,8 +29,11 @@ class _MainPanelState extends State<MainPanel>
   @override
   void didUpdateWidget(MainPanel oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.reset();
-    _controller.forward();
+
+    if (oldWidget.index != widget.index) {
+      _controller.reset();
+      _controller.forward();
+    }
   }
 
   @override
