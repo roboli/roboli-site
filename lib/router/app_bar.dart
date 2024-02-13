@@ -21,7 +21,7 @@ class _ScaffoldNavigationAppBar extends State<ScaffoldNavigationAppBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 7);
+    _tabController = TabController(vsync: this, length: 6);
   }
 
   @override
