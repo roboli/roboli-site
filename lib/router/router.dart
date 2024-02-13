@@ -11,13 +11,14 @@ import '../pages/experience_page.dart';
 import '../pages/games_page.dart';
 import '../pages/my_work_page.dart';
 
-GoRouter buildRouter(double screenSize) {
-  return GoRouter(
-    routes: [
-      StatefulShellRoute.indexedStack(
-        builder: (BuildContext context, GoRouterState state,
-            StatefulNavigationShell navigationShell) {
-          if (screenSize > screenBreakpoint) {
+final router = GoRouter(
+  routes: [
+    StatefulShellRoute.indexedStack(
+      builder: (BuildContext context, GoRouterState state,
+          StatefulNavigationShell navigationShell) {
+
+        return LayoutBuilder(builder: (context, constraints) {
+          if (constraints.maxWidth > screenBreakpoint) {
             return ScaffoldNavigationSideBar(
               navigationShell: navigationShell,
             );
@@ -26,70 +27,71 @@ GoRouter buildRouter(double screenSize) {
               navigationShell: navigationShell,
             );
           }
-        },
-        branches: <StatefulShellBranch>[
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const HomePage();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/about',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const AboutPage();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/experience',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const ExperiencePage();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/work',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const MyWorkPage();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/contact',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const ContactPage();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/games',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const GamesPage();
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
-  );
-}
+        });
+
+      },
+      branches: <StatefulShellBranch>[
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/',
+              builder: (BuildContext context, GoRouterState state) {
+                return const HomePage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/about',
+              builder: (BuildContext context, GoRouterState state) {
+                return const AboutPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/experience',
+              builder: (BuildContext context, GoRouterState state) {
+                return const ExperiencePage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/work',
+              builder: (BuildContext context, GoRouterState state) {
+                return const MyWorkPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/contact',
+              builder: (BuildContext context, GoRouterState state) {
+                return const ContactPage();
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/games',
+              builder: (BuildContext context, GoRouterState state) {
+                return const GamesPage();
+              },
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
