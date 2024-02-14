@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roboli_site/helpers/constants.dart';
+import 'package:roboli_site/pages/experience_page/tile.dart';
+import 'package:roboli_site/pages/my_work_page/article_tile.dart';
 import 'package:roboli_site/pages/my_work_page/project_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -54,6 +56,30 @@ class MyWorkPage extends StatelessWidget {
                     description: clerk,
                     uri: Uri.https('github.com', 'roboli/clerk'),
                   ),
+                  const Text(
+                    'Articles',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 25,),
+                  ArticleTile(
+                    name: 'Anécdotas sobre Programación (PHP, JS, Emacs, Clojure)',
+                    uri: Uri.https('medium.com', '@roboli/anécdotas-sobre-programación-php-js-emacs-clojure-c639d9160749'),
+                  ),
+                  ArticleTile(
+                    name: 'El Programador Políglota',
+                    uri: Uri.https('medium.com', '@roboli/el-programador-políglota-1ed5066d449e'),
+                  ),
+                  ArticleTile(
+                    name: 'Desarrollo Iterativo',
+                    uri: Uri.https('medium.com', '@roboli/desarrollo-iterativo-4a47442b2586'),
+                  ),
+                  ArticleTile(
+                    name: 'Entendiendo Programación Asíncrona con JavaScript y Node',
+                    uri: Uri.https('medium.com', '@roboli/entendiendo-programación-asincronica-con-javascript-y-node-656bdc44b0e5'),
+                  )
                 ],
               ),
             )
