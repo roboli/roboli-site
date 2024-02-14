@@ -68,6 +68,9 @@ flutter:
     - assets/trees.jpg
     - assets/icons/clojure-dark-green-icon.svg
     - assets/icons/Unofficial_JavaScript_logo_2.svg
+    - assets/logos/lefthookdigital.jpeg
+    - assets/logos/PayJusticeLogo.png
+    - assets/logos/flowXO-colour.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

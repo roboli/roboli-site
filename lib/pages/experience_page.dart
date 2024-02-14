@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roboli_site/helpers/constants.dart';
 import 'package:roboli_site/pages/experience_page/tile.dart';
 
@@ -31,9 +32,15 @@ class ExperiencePage extends StatelessWidget {
                     dateRange: 'Feb 2023 - Nov 2023',
                     location: 'Durham, New Hampshire, USA · Remote',
                     description: jobLH,
-                    logo: const AspectRatio(
-                      aspectRatio: 1.0,
-                      child: FlutterLogo(),
+                    logo: Container(
+                      height: 100,
+                      width: 100,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/logos/lefthookdigital.jpeg'),
+                          fit: BoxFit.fill
+                        ),
+                      ),
                     ),
                   ),
                   Tile(
@@ -42,9 +49,15 @@ class ExperiencePage extends StatelessWidget {
                     dateRange: 'Nov 2017 - Nov 2022',
                     location: 'Manchester, UK · Remote',
                     description: jobPJ,
-                    logo: const AspectRatio(
-                      aspectRatio: 1.0,
-                      child: FlutterLogo(),
+                    logo: Container(
+                      height: 100,
+                      width: 100,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/logos/PayJusticeLogo.png'),
+                          fit: BoxFit.fill
+                        ),
+                      ),
                     ),
                   ),
                   Tile(
@@ -53,9 +66,12 @@ class ExperiencePage extends StatelessWidget {
                     dateRange: 'Jun 2015 - Dec 2016',
                     location: 'Manchester, UK · Remote',
                     description: jobFXO,
-                    logo: const AspectRatio(
-                      aspectRatio: 1.0,
-                      child: FlutterLogo(),
+                    logo: Container(
+                      height: 100,
+                      width: 100,
+                      padding: const EdgeInsets.all(5.0),
+                      color: Colors.white,
+                      child: SvgPicture.asset('assets/logos/flowXO-colour.svg'),
                     ),
                   )
                 ],
