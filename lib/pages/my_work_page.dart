@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:roboli_site/helpers/constants.dart';
 import 'package:roboli_site/pages/experience_page/tile.dart';
 import 'package:roboli_site/pages/my_work_page/article_tile.dart';
+import 'package:roboli_site/pages/my_work_page/book_tile.dart';
 import 'package:roboli_site/pages/my_work_page/project_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,6 +31,19 @@ class MyWorkPage extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 100,),
                 children: [
+                  const Text(
+                    'Books',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 25,),
+                  BookTile(
+                    name: 'Junior PHP & JavaScript',
+                    uri: Uri.https('a.co', 'd/5IlhmFZ'),
+                  ),
+                  const SizedBox(height: 25,),
                   const Text(
                     'Projects',
                     style: TextStyle(
@@ -79,7 +93,7 @@ class MyWorkPage extends StatelessWidget {
                   ArticleTile(
                     name: 'Entendiendo Programación Asíncrona con JavaScript y Node',
                     uri: Uri.https('medium.com', '@roboli/entendiendo-programación-asincronica-con-javascript-y-node-656bdc44b0e5'),
-                  )
+                  ),
                 ],
               ),
             )
