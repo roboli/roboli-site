@@ -44,3 +44,11 @@ const jobFXO =
     'so happy with my work that they moved me in as a core developer. Around this time, I was part of the team in '
     'charge of transforming Flow XO from automation platform to a bot platform. I’m proud to say that the goal '
     'was accomplished satisfactorily. I worked on this project for 18 months.';
+
+const pdf2Images =
+    'A wrapper for the PDFBox that converts a page range of a PDF document to images.';
+
+const balloon =
+    'Deflate a nested map into one level deep or inflate a one level into a nested map using delimited keys.';
+
+const clerk = 'Syntatic sugar over Secretary router to make it Om ready.';

@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^6.1.0
   easy_debounce: ^2.0.3
   flutter_svg: ^2.0.9
+  url_launcher: ^6.2.4
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
     - assets/trees.jpg
     - assets/icons/clojure-dark-green-icon.svg
     - assets/icons/Unofficial_JavaScript_logo_2.svg
+    - assets/icons/github-mark-white.svg
     - assets/logos/lefthookdigital.jpeg
     - assets/logos/PayJusticeLogo.png
     - assets/logos/flowXO-colour.svg
