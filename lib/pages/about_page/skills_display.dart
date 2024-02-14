@@ -83,7 +83,7 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 70.0),
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 800),
             transitionBuilder: (Widget child, Animation<double> animation) {
               return ScaleTransition(scale: animation, child: child);
             },
