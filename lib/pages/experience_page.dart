@@ -25,6 +25,7 @@ class ExperiencePage extends StatelessWidget {
             const SizedBox(height: 75,),
             Expanded(
               child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 100,),
                 children: [
                   Tile(
                     role: 'Integration Engineer',
