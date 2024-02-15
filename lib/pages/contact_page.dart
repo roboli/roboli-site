@@ -118,9 +118,20 @@ class _ContactPageState extends State<ContactPage> {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(
-                              onPressed: () {
-                                Form.of(context).reset();
-                              },
+                              onPressed: () async {
+                              ScaffoldFeatureController? scaffoldController;
+
+                              if (Form.of(context).validate()) {
+                                scaffoldController =
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Thank you for your message!'),
+                                  ),
+                                );
+                                await scaffoldController.closed;
+                              }
+                            },
                               child: const Text('Send'),
                             ),
                           ),
