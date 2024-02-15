@@ -34,6 +34,12 @@ class SiteApp extends StatelessWidget {
         scrollbarTheme: const ScrollbarThemeData().copyWith(
           thumbColor: MaterialStateProperty.all(Colors.grey[900]),
         ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+        ),
       ),
       routerConfig: router,
     );

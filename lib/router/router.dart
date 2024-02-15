@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:roboli_site/helpers/constants.dart';
-import 'package:roboli_site/router/app_bar.dart';
+import 'package:roboli_site/router/drawer.dart';
 
 import 'side_bar.dart';
 import '../pages/home_page.dart';
@@ -23,7 +23,7 @@ final router = GoRouter(
               navigationShell: navigationShell,
             );
           } else {
-            return ScaffoldNavigationAppBar(
+            return ScaffoldNavigationDrawer(
               navigationShell: navigationShell,
             );
           }
