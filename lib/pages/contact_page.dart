@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -8,6 +11,8 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
+  final _formKey = GlobalKey<FormState>();
+
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _commentController;
@@ -52,92 +57,121 @@ class _ContactPageState extends State<ContactPage> {
                   maxWidth: 1000,
                 ),
                 child: Form(
-                  child: Builder(
-                    builder: (context) {
-                      return ListView(
+                  key: _formKey,
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 32,
+                      horizontal: 16,
+                    ),
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 32,
-                          horizontal: 16,
+                          horizontal: 16.0,
                         ),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: TextFormField(
-                              controller: _nameController,
-                              decoration: const InputDecoration(
-                                label: Text('Name'),
-                                border: OutlineInputBorder(),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) =>
-                                  (value?.isEmpty ?? true) ? 'Name is required' : null,
-                            ),
+                        child: TextFormField(
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            label: Text('Name'),
+                            border: OutlineInputBorder(),
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) => (value?.isEmpty ?? true)
+                              ? 'Name is required'
+                              : null,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        child: TextFormField(
+                            controller: _emailController,
+                            decoration: const InputDecoration(
+                              label: Text('Email'),
+                              border: OutlineInputBorder(),
                             ),
-                            child: TextFormField(
-                              controller: _emailController,
-                              decoration: const InputDecoration(
-                                label: Text('Email'),
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (value) =>
-                                  (value?.isEmpty ?? true) ? 'Email is required' : null,
+                            validator: _handleEmailValidation),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        child: SizedBox(
+                          height: 100,
+                          child: TextFormField(
+                            maxLines: null,
+                            expands: true,
+                            keyboardType: TextInputType.multiline,
+                            controller: _commentController,
+                            decoration: const InputDecoration(
+                              label: Text('Comment'),
+                              border: OutlineInputBorder(),
                             ),
+                            validator: (value) => (value?.isEmpty ?? true)
+                                ? 'Comment is required'
+                                : null,
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: SizedBox(
-                              height: 100,
-                              child: TextFormField(
-                                maxLines: null,
-                                expands: true,
-                                keyboardType: TextInputType.multiline,
-                                controller: _commentController,
-                                decoration: const InputDecoration(
-                                  label: Text('Comment'),
-                                  border: OutlineInputBorder(),
-                                ),
-                                validator: (value) =>
-                                    (value?.isEmpty ?? true) ? 'Comment is required' : null,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                              ScaffoldFeatureController? scaffoldController;
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            ScaffoldFeatureController? scaffoldController;
 
-                              if (Form.of(context).validate()) {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+
+                              final response = await http.post(
+                                Uri.parse('https://formspree.io/f/xayrojka'),
+                                headers: <String, String>{
+                                  'Content-Type':
+                                      'application/json; charset=UTF-8',
+                                },
+                                body: jsonEncode(<String, String>{
+                                  'name': _nameController.text,
+                                  'email': _emailController.text,
+                                  'comment': _commentController.text,
+                                }),
+                              );
+
+                              await Future.delayed(const Duration(seconds: 1));
+                              if (!context.mounted) return;
+
+                              if (response.statusCode == 200) {
                                 scaffoldController =
                                     ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text(
-                                        'Thank you for your message!'),
+                                    content:
+                                        Text('Thank you for your message!'),
                                   ),
                                 );
-                                await scaffoldController.closed;
+
+                                _formKey.currentState!.reset();
+                              } else {
+                                scaffoldController =
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text('Hmmm, something went wrong...'),
+                                  ),
+                                );
                               }
-                            },
-                              child: const Text('Send'),
-                            ),
-                          ),
-                        ],
-                      );
-                    }
+
+                              await scaffoldController.closed;
+                              _formKey.currentState!.reset();
+                            }
+                          },
+                          child: const Text('Send'),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -146,5 +180,18 @@ class _ContactPageState extends State<ContactPage> {
         ),
       ),
     );
+  }
+
+  final RegExp _emailRegExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9\-\_]+(\.[a-zA-Z]+)*$");
+
+  String? _handleEmailValidation(String? value) {
+    final isMissing = value?.isEmpty ?? true;
+
+    if (isMissing || !_emailRegExp.hasMatch(value!)) {
+      return 'Please provide a valid email address';
+    }
+
+    return null;
   }
 }
