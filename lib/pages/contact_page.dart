@@ -52,77 +52,81 @@ class _ContactPageState extends State<ContactPage> {
                   maxWidth: 1000,
                 ),
                 child: Form(
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 32,
-                      horizontal: 16,
-                    ),
-                    children: [
-                      Padding(
+                  child: Builder(
+                    builder: (context) {
+                      return ListView(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
+                          vertical: 32,
+                          horizontal: 16,
                         ),
-                        child: TextFormField(
-                          controller: _nameController,
-                          decoration: const InputDecoration(
-                            label: Text('Name'),
-                            border: OutlineInputBorder(),
-                          ),
-                          textInputAction: TextInputAction.next,
-                          validator: (value) =>
-                              (value?.isEmpty ?? true) ? 'Name is required' : null,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                        ),
-                        child: TextFormField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                            label: Text('Email'),
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) =>
-                              (value?.isEmpty ?? true) ? 'Email is required' : null,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                        ),
-                        child: SizedBox(
-                          height: 100,
-                          child: TextFormField(
-                            maxLines: null,
-                            expands: true,
-                            keyboardType: TextInputType.multiline,
-                            controller: _commentController,
-                            decoration: const InputDecoration(
-                              label: Text('Comment'),
-                              border: OutlineInputBorder(),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
                             ),
-                            validator: (value) =>
-                                (value?.isEmpty ?? true) ? 'Comment is required' : null,
+                            child: TextFormField(
+                              controller: _nameController,
+                              decoration: const InputDecoration(
+                                label: Text('Name'),
+                                border: OutlineInputBorder(),
+                              ),
+                              textInputAction: TextInputAction.next,
+                              validator: (value) =>
+                                  (value?.isEmpty ?? true) ? 'Name is required' : null,
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Form.of(context).reset();
-                          },
-                          child: const Text('Send'),
-                        ),
-                      ),
-                    ],
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: TextFormField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                label: Text('Email'),
+                                border: OutlineInputBorder(),
+                              ),
+                              validator: (value) =>
+                                  (value?.isEmpty ?? true) ? 'Email is required' : null,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: SizedBox(
+                              height: 100,
+                              child: TextFormField(
+                                maxLines: null,
+                                expands: true,
+                                keyboardType: TextInputType.multiline,
+                                controller: _commentController,
+                                decoration: const InputDecoration(
+                                  label: Text('Comment'),
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (value) =>
+                                    (value?.isEmpty ?? true) ? 'Comment is required' : null,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Form.of(context).reset();
+                              },
+                              child: const Text('Send'),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
                   ),
                 ),
               ),
