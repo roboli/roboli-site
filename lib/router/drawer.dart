@@ -34,7 +34,7 @@ class _ScaffoldNavigationDrawer extends State<ScaffoldNavigationDrawer>
     return ListTile(
       leading: Icon(
         iconData,
-        color: color,
+        color: widget.navigationShell.currentIndex == index ? Colors.grey : color,
       ),
       title: Text(name),
       onTap: () {
