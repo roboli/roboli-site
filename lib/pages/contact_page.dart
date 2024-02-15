@@ -12,6 +12,7 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final _formKey = GlobalKey<FormState>();
+  bool _isInAsync = false;
 
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
@@ -121,12 +122,14 @@ class _ContactPageState extends State<ContactPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
+                        child: ElevatedButton.icon(
                           onPressed: () async {
                             ScaffoldFeatureController? scaffoldController;
 
                             if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
+                              setState(() {
+                                _isInAsync = true;
+                              });
 
                               final response = await http.post(
                                 Uri.parse('https://formspree.io/f/xayrojka'),
@@ -144,16 +147,22 @@ class _ContactPageState extends State<ContactPage> {
                               await Future.delayed(const Duration(seconds: 1));
                               if (!context.mounted) return;
 
+                              setState(() {
+                                _isInAsync = false;
+                              });
+
                               if (response.statusCode == 200) {
                                 scaffoldController =
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Thank you for your message!'),
-                                  ),
-                                );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Thank you for your message!'),
+                                    ),
+                                  );
 
-                                _formKey.currentState!.reset();
+                                  // Reset manually, form won't reset
+                                  _nameController.text = '';
+                                  _emailController.text = '';
+                                  _commentController.text = '';
                               } else {
                                 scaffoldController =
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -165,10 +174,19 @@ class _ContactPageState extends State<ContactPage> {
                               }
 
                               await scaffoldController.closed;
-                              _formKey.currentState!.reset();
                             }
                           },
-                          child: const Text('Send'),
+                          icon: _isInAsync
+                              ? Container(
+                                  width: 24,
+                                  height: 24,
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: const CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                  ),
+                                )
+                              : const Icon(Icons.send),
+                          label: const Text('Send'),
                         ),
                       ),
                     ],
