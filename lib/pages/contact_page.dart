@@ -97,14 +97,20 @@ class _ContactPageState extends State<ContactPage> {
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
                         ),
-                        child: TextFormField(
-                          controller: _commentController,
-                          decoration: const InputDecoration(
-                            label: Text('Email'),
-                            border: OutlineInputBorder(),
+                        child: SizedBox(
+                          height: 100,
+                          child: TextFormField(
+                            maxLines: null,
+                            expands: true,
+                            keyboardType: TextInputType.multiline,
+                            controller: _commentController,
+                            decoration: const InputDecoration(
+                              label: Text('Comment'),
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (value) =>
+                                (value?.isEmpty ?? true) ? 'Comment is required' : null,
                           ),
-                          validator: (value) =>
-                              (value?.isEmpty ?? true) ? 'Comment is required' : null,
                         ),
                       ),
                       Padding(
@@ -113,7 +119,7 @@ class _ContactPageState extends State<ContactPage> {
                           onPressed: () {
                             Form.of(context).reset();
                           },
-                          child: const Text('Reset'),
+                          child: const Text('Send'),
                         ),
                       ),
                     ],
