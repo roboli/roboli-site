@@ -1,4 +1,4 @@
-const screenBreakpoint = 780;
+const screenBreakpoint = 920;
 
 const aboutMe =
     'With over 12 years of web development experience, I am a highly skilled, versatile, and self-taught '
