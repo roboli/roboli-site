@@ -52,6 +52,8 @@ class _LargeLayoutState extends State<LargeLayout>
     void handleHover(PointerEvent details) {
       EasyDebounce.debounce('mouse-hover', const Duration(milliseconds: lapse),
           () {
+        if (!mounted) return;
+
         final vector = center - details.localPosition;
         final angle = vector.direction;
         final end = angle + math.pi;
