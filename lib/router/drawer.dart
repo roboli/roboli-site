@@ -1,44 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:roboli_site/router/main_panel.dart';
 
-class ScaffoldNavigationDrawer extends StatefulWidget {
-  const ScaffoldNavigationDrawer({
-    required this.navigationShell,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldNavigationDrawer'));
-
+class ScaffoldNavigationDrawer extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  @override
-  State<StatefulWidget> createState() => _ScaffoldNavigationDrawer();
-}
+  const ScaffoldNavigationDrawer({super.key, required this.navigationShell});
 
-class _ScaffoldNavigationDrawer extends State<ScaffoldNavigationDrawer>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  Widget _buildTab(BuildContext context, String name, IconData iconData, int index) {
+    final color = Theme.of(context).primaryColor;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: 6);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  Widget _buildTab(String name, IconData iconData, Color color, int index) {
     return ListTile(
       leading: Icon(
         iconData,
-        color: widget.navigationShell.currentIndex == index ? Colors.grey : color,
+        color: navigationShell.currentIndex == index ? Colors.grey : color,
       ),
       title: Text(name),
       onTap: () {
-        widget.navigationShell.goBranch(index);
+        navigationShell.goBranch(index);
         Navigator.pop(context);
       },
     );
@@ -46,8 +24,6 @@ class _ScaffoldNavigationDrawer extends State<ScaffoldNavigationDrawer>
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = Theme.of(context).primaryColor;
-
     return Scaffold(
       appBar: AppBar(),
       drawer: Drawer(
@@ -55,26 +31,23 @@ class _ScaffoldNavigationDrawer extends State<ScaffoldNavigationDrawer>
         child: ListView(
           children: [
             const DrawerHeader(child: SizedBox()),
-            _buildTab('HOME', Icons.home, iconColor, 0),
+            _buildTab(context, 'HOME', Icons.home, 0),
             const Divider(),
-            _buildTab('ABOUT', Icons.person, iconColor, 1),
+            _buildTab(context, 'ABOUT', Icons.person, 1),
             const Divider(),
-            _buildTab('EXPERIENCE', Icons.work, iconColor, 2),
+            _buildTab(context, 'EXPERIENCE', Icons.work, 2),
             const Divider(),
-            _buildTab('MY WORK', Icons.palette_rounded, iconColor, 3),
+            _buildTab(context, 'MY WORK', Icons.palette_rounded, 3),
             const Divider(),
-            _buildTab('CONTACT', Icons.email, iconColor, 4),
+            _buildTab(context, 'CONTACT', Icons.email, 4),
             const Divider(),
-            _buildTab('BORED?', Icons.flutter_dash, iconColor, 5),
+            _buildTab(context, 'BORED?', Icons.flutter_dash, 5),
             const Divider(),
           ],
         ),
       ),
       body: SafeArea(
-        child: MainPanel(
-          index: _tabController.index,
-          child: widget.navigationShell,
-        ),
+        child: navigationShell,
       ),
     );
   }
