@@ -11,18 +11,18 @@ import 'package:roboli_site/pages/my_work_page.dart';
 
 import 'site_tab.dart';
 
-class ScaffoldNavigationSideBar extends StatefulWidget {
+class MenuSideBar extends StatefulWidget {
   final String page;
   final int index;
 
-  ScaffoldNavigationSideBar({super.key, required this.page})
+  MenuSideBar({super.key, required this.page})
       : index = pages[page] ?? 0;
 
   @override
-  State<StatefulWidget> createState() => _ScaffoldNavigationSideBar();
+  State<StatefulWidget> createState() => _MenuSideBar();
 }
 
-class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
+class _MenuSideBar extends State<MenuSideBar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

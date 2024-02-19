@@ -9,19 +9,19 @@ import 'package:roboli_site/pages/games_page.dart';
 import 'package:roboli_site/pages/home_page.dart';
 import 'package:roboli_site/pages/my_work_page.dart';
 
-class ScaffoldNavigationPager extends StatefulWidget {
+class MenuPager extends StatefulWidget {
   final String page;
   final int index;
 
-  ScaffoldNavigationPager({super.key, required this.page})
+  MenuPager({super.key, required this.page})
       : index = pages[page] ?? 0;
 
   @override
-  State<ScaffoldNavigationPager> createState() =>
-      _ScaffoldNavigationPagerState();
+  State<MenuPager> createState() =>
+      _MenuPagerState();
 }
 
-class _ScaffoldNavigationPagerState extends State<ScaffoldNavigationPager> {
+class _MenuPagerState extends State<MenuPager> {
   late PageController _pageController;
   bool isInTransition = false;
 

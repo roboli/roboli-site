@@ -7,7 +7,8 @@ final Map<String, int> pages = {
   'games': 5
 };
 
-const screenBreakpoint = 920;
+const screenWBreakpoint = 920;
+const screenHBreakpoint = 620;
 
 const aboutMe =
     'With over 12 years of web development experience, I am a highly skilled, versatile, and self-taught '

@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-        if (constraints.maxWidth > screenBreakpoint) {
+        if (constraints.maxWidth > screenWBreakpoint) {
           return const LargeLayout();
         } else {
           return const Placeholder();

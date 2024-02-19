@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:roboli_site/router/router.dart';
+import 'package:roboli_site/router.dart';
 
 void main() {
   runApp(const SiteApp());
