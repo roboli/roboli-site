@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:roboli_site/helpers/constants.dart';
-import 'package:roboli_site/router/drawer.dart';
+import 'package:roboli_site/router/pager.dart';
 import 'package:roboli_site/router/side_bar.dart';
 
 final router = GoRouter(
@@ -20,7 +20,7 @@ final router = GoRouter(
               page: state.pathParameters['page'] ?? '',
             );
           } else {
-            return ScaffoldNavigationDrawer(
+            return ScaffoldNavigationPager(
               page: state.pathParameters['page'] ?? '',
             );
           }
