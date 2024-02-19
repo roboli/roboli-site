@@ -11,12 +11,13 @@ import 'package:roboli_site/pages/my_work_page.dart';
 
 import 'site_tab.dart';
 
+const minHeight = 900.0;
+
 class MenuSideBar extends StatefulWidget {
   final String page;
   final int index;
 
-  MenuSideBar({super.key, required this.page})
-      : index = pages[page] ?? 0;
+  MenuSideBar({super.key, required this.page}) : index = pages[page] ?? 0;
 
   @override
   State<StatefulWidget> createState() => _MenuSideBar();
@@ -29,7 +30,8 @@ class _MenuSideBar extends State<MenuSideBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 6, initialIndex: widget.index);
+    _tabController =
+        TabController(vsync: this, length: 6, initialIndex: widget.index);
   }
 
   @override
@@ -66,57 +68,56 @@ class _MenuSideBar extends State<MenuSideBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Row(
-          children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 900),
-              child: Container(
-                width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
-                alignment: Alignment.topCenter,
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: RotatedBox(
-                  quarterTurns: 1,
-                  child: TabBar(
-                    controller: _tabController,
-                    labelPadding: EdgeInsets.zero,
-                    indicatorColor: Colors.transparent,
-                    tabs: [
-                      _buildTab('HOME', Icons.home, 0),
-                      _buildTab('ABOUT', Icons.person, 1),
-                      _buildTab('EXPERIENCE', Icons.work, 2),
-                      _buildTab('MY WORK', Icons.palette_rounded, 3),
-                      _buildTab('CONTACT', Icons.email, 4),
-                      _buildTab('BORED?', Icons.flutter_dash, 5),
-                    ],
-                    onTap: (index) {
-                      updateRouter(index);
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
+        body: SafeArea(
+      child: Row(
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: minHeight),
+            child: Container(
+              width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.symmetric(vertical: 32),
               child: RotatedBox(
                 quarterTurns: 1,
-                child: TabBarView(
+                child: TabBar(
                   controller: _tabController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    _buildTabView(const HomePage()),
-                    _buildTabView(const AboutPage()),
-                    _buildTabView(const ExperiencePage()),
-                    _buildTabView(const MyWorkPage()),
-                    _buildTabView(const ContactPage()),
-                    _buildTabView(const GamesPage()),
+                  labelPadding: EdgeInsets.zero,
+                  indicatorColor: Colors.transparent,
+                  tabs: [
+                    _buildTab('HOME', Icons.home, 0),
+                    _buildTab('ABOUT', Icons.person, 1),
+                    _buildTab('EXPERIENCE', Icons.work, 2),
+                    _buildTab('MY WORK', Icons.palette_rounded, 3),
+                    _buildTab('CONTACT', Icons.email, 4),
+                    _buildTab('BORED?', Icons.flutter_dash, 5),
                   ],
+                  onTap: (index) {
+                    updateRouter(index);
+                  },
                 ),
               ),
             ),
-          ],
-        ),
-      )
-    );
+          ),
+          Expanded(
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  _buildTabView(const HomePage()),
+                  _buildTabView(const AboutPage()),
+                  _buildTabView(const ExperiencePage()),
+                  _buildTabView(const MyWorkPage()),
+                  _buildTabView(const ContactPage()),
+                  _buildTabView(const GamesPage()),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   Widget _buildTabView(Widget child) {
