@@ -29,7 +29,7 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 6);
+    _tabController = TabController(vsync: this, length: 6, initialIndex: widget.index);
   }
 
   @override
