@@ -66,53 +66,57 @@ class _MenuSideBar extends State<MenuSideBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Row(
-        children: [
-          Container(
-            width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
-            alignment: Alignment.topCenter,
-            padding: const EdgeInsets.symmetric(vertical: 32),
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: TabBar(
-                controller: _tabController,
-                labelPadding: EdgeInsets.zero,
-                indicatorColor: Colors.transparent,
-                tabs: [
-                  _buildTab('HOME', Icons.home, 0),
-                  _buildTab('ABOUT', Icons.person, 1),
-                  _buildTab('EXPERIENCE', Icons.work, 2),
-                  _buildTab('MY WORK', Icons.palette_rounded, 3),
-                  _buildTab('CONTACT', Icons.email, 4),
-                  _buildTab('BORED?', Icons.flutter_dash, 5),
-                ],
-                onTap: (index) {
-                  updateRouter(index);
-                },
+      body: SafeArea(
+        child: Row(
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 900),
+              child: Container(
+                width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
+                alignment: Alignment.topCenter,
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: TabBar(
+                    controller: _tabController,
+                    labelPadding: EdgeInsets.zero,
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      _buildTab('HOME', Icons.home, 0),
+                      _buildTab('ABOUT', Icons.person, 1),
+                      _buildTab('EXPERIENCE', Icons.work, 2),
+                      _buildTab('MY WORK', Icons.palette_rounded, 3),
+                      _buildTab('CONTACT', Icons.email, 4),
+                      _buildTab('BORED?', Icons.flutter_dash, 5),
+                    ],
+                    onTap: (index) {
+                      updateRouter(index);
+                    },
+                  ),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildTabView(const HomePage()),
-                  _buildTabView(const AboutPage()),
-                  _buildTabView(const ExperiencePage()),
-                  _buildTabView(const MyWorkPage()),
-                  _buildTabView(const ContactPage()),
-                  _buildTabView(const GamesPage()),
-                ],
+            Expanded(
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: TabBarView(
+                  controller: _tabController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _buildTabView(const HomePage()),
+                    _buildTabView(const AboutPage()),
+                    _buildTabView(const ExperiencePage()),
+                    _buildTabView(const MyWorkPage()),
+                    _buildTabView(const ContactPage()),
+                    _buildTabView(const GamesPage()),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    ));
+          ],
+        ),
+      )
+    );
   }
 
   Widget _buildTabView(Widget child) {
