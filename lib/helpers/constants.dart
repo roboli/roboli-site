@@ -1,3 +1,12 @@
+final Map<String, int> pages = {
+  'home': 0,
+  'about': 1,
+  'experience': 2,
+  'work': 3,
+  'contact': 4,
+  'games': 5
+};
+
 const screenBreakpoint = 920;
 
 const aboutMe =

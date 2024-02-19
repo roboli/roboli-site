@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:roboli_site/router/main_panel.dart';
+import 'package:roboli_site/helpers/constants.dart';
+import 'package:roboli_site/pages/about_page.dart';
+import 'package:roboli_site/pages/contact_page.dart';
+import 'package:roboli_site/pages/experience_page.dart';
+import 'package:roboli_site/pages/games_page.dart';
+import 'package:roboli_site/pages/home_page.dart';
+import 'package:roboli_site/pages/my_work_page.dart';
 
 import 'site_tab.dart';
 
 class ScaffoldNavigationSideBar extends StatefulWidget {
-  const ScaffoldNavigationSideBar({
-    required this.navigationShell,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldNavigationSideBar'));
+  final String page;
+  final int index;
 
-  final StatefulNavigationShell navigationShell;
+  ScaffoldNavigationSideBar({super.key, required this.page})
+      : index = pages[page] ?? 0;
 
   @override
   State<StatefulWidget> createState() => _ScaffoldNavigationSideBar();
@@ -28,10 +33,20 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
   }
 
   @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Check if router changed page
+    if (_tabController.index != widget.index) {
+      _tabController.animateTo(widget.index);
+    }
+  }
+
+  @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
-   }
+  }
 
   Widget _buildTab(String name, IconData iconData, int index) {
     return RotatedBox(
@@ -63,7 +78,6 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
               child: TabBar(
                 controller: _tabController,
                 labelPadding: EdgeInsets.zero,
-                isScrollable: true,
                 indicatorColor: Colors.transparent,
                 tabs: [
                   _buildTab('HOME', Icons.home, 0),
@@ -74,19 +88,72 @@ class _ScaffoldNavigationSideBar extends State<ScaffoldNavigationSideBar>
                   _buildTab('BORED?', Icons.flutter_dash, 5),
                 ],
                 onTap: (index) {
-                  widget.navigationShell.goBranch(index);
+                  updateRouter(index);
                 },
               ),
             ),
           ),
           Expanded(
-            child: MainPanel(
-              index: _tabController.index,
-              child: widget.navigationShell,
-              )
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  _buildTabView(const HomePage()),
+                  _buildTabView(const AboutPage()),
+                  _buildTabView(const ExperiencePage()),
+                  _buildTabView(const MyWorkPage()),
+                  _buildTabView(const ContactPage()),
+                  _buildTabView(const GamesPage()),
+                ],
+              ),
+            ),
           ),
         ],
       ),
     ));
+  }
+
+  Widget _buildTabView(Widget child) {
+    return RotatedBox(
+      quarterTurns: -1,
+      child: child,
+    );
+  }
+
+  void updateRouter(int index) {
+    // Do not update router if page transition is happening
+    // if (isInTransition) return;
+
+    String page = 'home';
+
+    switch (index) {
+      case 0:
+        page = 'home';
+        break;
+
+      case 1:
+        page = 'about';
+        break;
+
+      case 2:
+        page = 'experience';
+        break;
+
+      case 3:
+        page = 'work';
+        break;
+
+      case 4:
+        page = 'contact';
+        break;
+
+      case 5:
+        page = 'games';
+        break;
+    }
+
+    GoRouter.of(context).goNamed('page', pathParameters: {'page': page});
   }
 }
