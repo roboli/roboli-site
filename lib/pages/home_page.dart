@@ -5,7 +5,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:roboli_site/helpers/constants.dart';
 
 import '../../helpers/segments.dart';
-import 'home_page/animated_profile_pic.dart';
+import 'home_page/animated_ring.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage>
                   height: 20,
                 ),
                 Expanded(
-                  child: AnimatedProfilePic(
+                  child: AnimatedRing(
                     animation: animationF,
                     segment: Segment(
                       color: Colors.green,
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage>
                       size: twoPi * 0.875,
                       radius: radius + 20
                     ),
-                    child: AnimatedProfilePic(
+                    child: AnimatedRing(
                       animation: animationB,
                       segment: Segment(
                         color: Colors.lightBlue,
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage>
                         size: twoPi * 0.625,
                         radius: radius + 10,
                       ),
-                      child: AnimatedProfilePic(
+                      child: AnimatedRing(
                         animation: animationF,
                         segment: Segment(
                           color: Colors.amberAccent,

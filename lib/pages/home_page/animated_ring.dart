@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../helpers/segments.dart';
 
-class AnimatedProfilePic extends AnimatedWidget {
-  const AnimatedProfilePic(
+class AnimatedRing extends AnimatedWidget {
+  const AnimatedRing(
       {super.key, required this.animation, required this.segment, this.child})
       : super(listenable: animation);
 
@@ -14,7 +14,7 @@ class AnimatedProfilePic extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: _ProfilePicOutlineDecoration(
+      decoration: _RingOutlineDecoration(
         maxFraction: animation.value,
         segment: segment,
       ),
@@ -23,8 +23,8 @@ class AnimatedProfilePic extends AnimatedWidget {
   }
 }
 
-class _ProfilePicOutlineDecoration extends Decoration {
-  const _ProfilePicOutlineDecoration({
+class _RingOutlineDecoration extends Decoration {
+  const _RingOutlineDecoration({
     required this.maxFraction,
     required this.segment,
   });
@@ -34,15 +34,15 @@ class _ProfilePicOutlineDecoration extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _ProfilePicOutlineBoxPainter(
+    return _RingOutlineBoxPainter(
       maxFraction: maxFraction,
       segment: segment,
     );
   }
 }
 
-class _ProfilePicOutlineBoxPainter extends BoxPainter {
-  _ProfilePicOutlineBoxPainter({
+class _RingOutlineBoxPainter extends BoxPainter {
+  _RingOutlineBoxPainter({
     required this.maxFraction,
     required this.segment,
   });
