@@ -5,24 +5,24 @@ import 'package:easy_debounce/easy_debounce.dart';
 
 class RingManager extends StatefulWidget {
   final Widget child;
-  final Size size;
   final AnimationController controller;
   final Tween<double> forward;
   final Tween<double> backward;
   final double startPos;
   final bool mounted;
+  late final Offset center;
 
   static const lapse = 350;
 
-  const RingManager(
+  RingManager(
       {super.key,
       required this.child,
-      required this.size,
       required this.controller,
       required this.forward,
       required this.backward,
       required this.startPos,
-      required this.mounted});
+      required this.mounted,
+      required size}) : center = Offset(size.width / 2, size.height / 2);
 
   @override
   State<RingManager> createState() => _RingManagerState();
@@ -31,42 +31,36 @@ class RingManager extends StatefulWidget {
 class _RingManagerState extends State<RingManager> {
   double pos = 0;
 
-  void Function(PointerEvent details) _onMouseHover(Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
+  void _handleMouseHover(PointerEvent details) {
+    EasyDebounce.debounce(
+        'mouse-hover', const Duration(milliseconds: RingManager.lapse), () {
+      if (!widget.mounted) return;
 
-    void handleHover(PointerEvent details) {
-      EasyDebounce.debounce(
-          'mouse-hover', const Duration(milliseconds: RingManager.lapse), () {
-        if (!widget.mounted) return;
+      final vector = widget.center - details.localPosition;
+      final angle = vector.direction;
+      final end = angle + math.pi;
+      var tweenEnd = (pos > end) ? (widget.startPos + end) : end;
 
-        final vector = center - details.localPosition;
-        final angle = vector.direction;
-        final end = angle + math.pi;
-        var tweenEnd = (pos > end) ? (widget.startPos + end) : end;
+      widget.forward.begin = pos;
+      widget.forward.end = end;
 
-        widget.forward.begin = pos;
-        widget.forward.end = end;
+      widget.backward.begin = pos;
+      widget.backward.end = -tweenEnd;
 
-        widget.backward.begin = pos;
-        widget.backward.end = -tweenEnd;
+      const spring = SpringDescription(mass: 1, stiffness: 60, damping: 10);
+      final simulation = SpringSimulation(
+          spring, 0, 1, -(vector.distance / RingManager.lapse));
 
-        const spring = SpringDescription(mass: 1, stiffness: 60, damping: 10);
-        final simulation = SpringSimulation(
-            spring, 0, 1, -(vector.distance / RingManager.lapse));
+      widget.controller.animateWith(simulation);
 
-        widget.controller.animateWith(simulation);
-
-        pos = end;
-      });
-    }
-
-    return handleHover;
+      pos = end;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onHover: _onMouseHover(widget.size),
+      onHover: _handleMouseHover,
       child: widget.child,
     );
   }
