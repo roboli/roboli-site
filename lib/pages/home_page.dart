@@ -2,7 +2,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roboli_site/helpers/constants.dart';
 
 import '../../helpers/segments.dart';

@@ -40,7 +40,7 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
                 icon: SizedBox(
                   width: 140,
                   height: 140,
-                  child: SvgPicture.asset('assets/icons/clojure-dark-green-icon.svg')
+                  child: SvgPicture.asset('assets/svgs/clojure-dark-green-icon.svg')
                 ),
               ),
             ),
@@ -74,7 +74,7 @@ class _SkillsDisplayState extends State<SkillsDisplay> {
                 icon: SizedBox(
                   width: 120,
                   height: 120,
-                  child: SvgPicture.asset('assets/icons/Unofficial_JavaScript_logo_2.svg')
+                  child: SvgPicture.asset('assets/svgs/Unofficial_JavaScript_logo_2.svg')
                 ),
               ),
             ),
