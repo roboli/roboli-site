@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage>
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: const DecorationImage(
-                              image:  AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
+                              image:  AssetImage('assets/images/trees.jpg'), fit: BoxFit.fill),
                           ),
                         ) : SizedBox(
                           height: radius * 1.8,
@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage>
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: const DecorationImage(
-                              image:  AssetImage('assets/trees.jpg'), fit: BoxFit.fill),
+                              image:  AssetImage('assets/images/trees.jpg'), fit: BoxFit.fill),
                           ),
                         ),
                         ),

@@ -38,7 +38,7 @@ class ExperiencePage extends StatelessWidget {
                       width: 100,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/logos/lefthookdigital.jpeg'),
+                          image: AssetImage('assets/images/lefthookdigital.jpeg'),
                           fit: BoxFit.fill
                         ),
                       ),
@@ -55,7 +55,7 @@ class ExperiencePage extends StatelessWidget {
                       width: 100,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/logos/PayJusticeLogo.png'),
+                          image: AssetImage('assets/images/PayJusticeLogo.png'),
                           fit: BoxFit.fill
                         ),
                       ),
@@ -72,7 +72,7 @@ class ExperiencePage extends StatelessWidget {
                       width: 100,
                       padding: const EdgeInsets.all(5.0),
                       color: Colors.white,
-                      child: SvgPicture.asset('assets/logos/flowXO-colour.svg'),
+                      child: SvgPicture.asset('assets/svgs/flowXO-colour.svg'),
                     ),
                   )
                 ],
