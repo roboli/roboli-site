@@ -57,66 +57,69 @@ class _HomePageState extends State<HomePage>
 
       return Scaffold(
         body: Center(
-          child: RingManager(
-            size: size,
-            controller: controller,
-            forward: moveForward,
-            backward: moveBackward,
-            startPos: HomePage.twoPi,
-            mounted: mounted,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: AnimatedRing(
-                    animation: animationF,
-                    segment: Segment(
-                      color: Colors.green,
-                      start: random.nextDouble() * HomePage.twoPi,
-                      size: HomePage.twoPi * 0.875,
-                      radius: radius + 20
-                    ),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: RingManager(
+              size: size,
+              controller: controller,
+              forward: moveForward,
+              backward: moveBackward,
+              startPos: HomePage.twoPi,
+              mounted: mounted,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
                     child: AnimatedRing(
-                      animation: animationB,
+                      animation: animationF,
                       segment: Segment(
-                        color: Colors.lightBlue,
+                        color: Colors.green,
                         start: random.nextDouble() * HomePage.twoPi,
-                        size: HomePage.twoPi * 0.625,
-                        radius: radius + 10,
+                        size: HomePage.twoPi * 0.875,
+                        radius: radius + 20
                       ),
                       child: AnimatedRing(
-                        animation: animationF,
+                        animation: animationB,
                         segment: Segment(
-                          color: Colors.amberAccent,
+                          color: Colors.lightBlue,
                           start: random.nextDouble() * HomePage.twoPi,
                           size: HomePage.twoPi * 0.625,
-                          radius: radius,
+                          radius: radius + 10,
                         ),
-                        child: CircleAvatar(
-                          radius: radius - 20,
-                          backgroundImage: const AssetImage('assets/images/roberto.jpg'),
+                        child: AnimatedRing(
+                          animation: animationF,
+                          segment: Segment(
+                            color: Colors.amberAccent,
+                            start: random.nextDouble() * HomePage.twoPi,
+                            size: HomePage.twoPi * 0.625,
+                            radius: radius,
+                          ),
+                          child: CircleAvatar(
+                            radius: radius - 20,
+                            backgroundImage: const AssetImage('assets/images/roberto.jpg'),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text(
-                    'Hi there! Welcome to Roberto Oliveros\' home page.',
-                    style: TextStyle(
-                      fontSize: size.width > screenWBreakpoint ? 30 : 20
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      'Hi there! Welcome to Roberto Oliveros\' home page.',
+                      style: TextStyle(
+                        fontSize: size.width > screenWBreakpoint ? 30 : 20
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox(
-                  height: 90,
-                ),
-              ],
+                  const SizedBox(
+                    height: 90,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
