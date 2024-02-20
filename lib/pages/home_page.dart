@@ -1,14 +1,15 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:roboli_site/helpers/constants.dart';
+import 'package:roboli_site/pages/home_page/ring_manager.dart';
 
 import '../../helpers/segments.dart';
 import 'home_page/animated_ring.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  static const twoPi = 2 * math.pi;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,20 +25,15 @@ class _HomePageState extends State<HomePage>
   late Animation<double> animationB;
   late Tween<double> moveBackward;
 
-  double pos = 0;
-
-  static const twoPi = 2 * math.pi;
-  static const lapse = 350;
-
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, upperBound: twoPi);
+    controller = AnimationController(vsync: this, upperBound: HomePage.twoPi);
 
-    moveForward = Tween<double>(begin: pos, end: twoPi);
+    moveForward = Tween<double>(begin: 0, end: HomePage.twoPi);
     animationF = moveForward.animate(controller);
 
-    moveBackward = Tween<double>(begin: pos, end: twoPi);
+    moveBackward = Tween<double>(begin: 0, end: HomePage.twoPi);
     animationB = moveBackward.animate(controller);
   }
 
@@ -45,38 +41,6 @@ class _HomePageState extends State<HomePage>
   void dispose() {
     controller.dispose();
     super.dispose();
-  }
-
-  void Function(PointerEvent details) _onMouseHover(Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-
-    void handleHover(PointerEvent details) {
-      EasyDebounce.debounce('mouse-hover', const Duration(milliseconds: lapse),
-          () {
-        if (!mounted) return;
-
-        final vector = center - details.localPosition;
-        final angle = vector.direction;
-        final end = angle + math.pi;
-        var tweenEnd = (pos > end) ? (twoPi + end) : end;
-
-        moveForward.begin = pos;
-        moveForward.end = end;
-
-        moveBackward.begin = pos;
-        moveBackward.end = -tweenEnd;
-
-        const spring = SpringDescription(mass: 1, stiffness: 60, damping: 10);
-        final simulation =
-            SpringSimulation(spring, 0, 1, -(vector.distance / lapse));
-
-        controller.animateWith(simulation);
-
-        pos = end;
-      });
-    }
-
-    return handleHover;
   }
 
   @override
@@ -93,8 +57,13 @@ class _HomePageState extends State<HomePage>
 
       return Scaffold(
         body: Center(
-          child: MouseRegion(
-            onHover: _onMouseHover(size),
+          child: RingManager(
+            size: size,
+            controller: controller,
+            forward: moveForward,
+            backward: moveBackward,
+            startPos: HomePage.twoPi,
+            mounted: mounted,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -106,24 +75,24 @@ class _HomePageState extends State<HomePage>
                     animation: animationF,
                     segment: Segment(
                       color: Colors.green,
-                      start: random.nextDouble() * twoPi,
-                      size: twoPi * 0.875,
+                      start: random.nextDouble() * HomePage.twoPi,
+                      size: HomePage.twoPi * 0.875,
                       radius: radius + 20
                     ),
                     child: AnimatedRing(
                       animation: animationB,
                       segment: Segment(
                         color: Colors.lightBlue,
-                        start: random.nextDouble() * twoPi,
-                        size: twoPi * 0.625,
+                        start: random.nextDouble() * HomePage.twoPi,
+                        size: HomePage.twoPi * 0.625,
                         radius: radius + 10,
                       ),
                       child: AnimatedRing(
                         animation: animationF,
                         segment: Segment(
                           color: Colors.amberAccent,
-                          start: random.nextDouble() * twoPi,
-                          size: twoPi * 0.625,
+                          start: random.nextDouble() * HomePage.twoPi,
+                          size: HomePage.twoPi * 0.625,
                           radius: radius,
                         ),
                         child: CircleAvatar(
