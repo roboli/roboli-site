@@ -127,23 +127,9 @@ class _HomePageState extends State<HomePage>
                           size: twoPi * 0.625,
                           radius: radius,
                         ),
-                        child: (size.width > screenWBreakpoint) ? Container(
-                          margin: EdgeInsets.all(radius - 60),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: const DecorationImage(
-                              image:  AssetImage('assets/images/trees.jpg'), fit: BoxFit.fill),
-                          ),
-                        ) : SizedBox(
-                          height: radius * 1.8,
-                          width: radius * 1.8,
-                          child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: const DecorationImage(
-                              image:  AssetImage('assets/images/trees.jpg'), fit: BoxFit.fill),
-                          ),
-                        ),
+                        child: CircleAvatar(
+                          radius: radius - 20,
+                          backgroundImage: const AssetImage('assets/images/roberto.jpg'),
                         ),
                       ),
                     ),
