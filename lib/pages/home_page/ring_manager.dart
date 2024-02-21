@@ -50,7 +50,7 @@ class _RingManagerState extends State<RingManager> {
         isMoving = false;
       });
     } else {
-      widget.controller.repeat(period: const Duration(seconds: 50));
+      widget.controller.repeat(period: const Duration(minutes: 1));
       setState(() {
         isMoving = true;
       });
@@ -90,12 +90,9 @@ class _RingManagerState extends State<RingManager> {
   @override
   Widget build(BuildContext context) {
     if (isWebMobile) {
-      return GestureDetector(
+      return InkWell(
         onTap: _handleTap,
-        child: Container(
-          color: isMoving ? Colors.blueGrey : Colors.transparent,
-          child: widget.child
-        ),
+        child: widget.child,
       );
     } else {
       return MouseRegion(
