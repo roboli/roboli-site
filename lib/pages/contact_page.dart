@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:roboli_site/helpers/constants.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -35,26 +36,27 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const Center(
+            Center(
               child: Text(
                 'Contact Me',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: width > screenWBreakpoint ? 30 : 25,
                 ),
               ),
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 100,),
                 constraints: const BoxConstraints(
                   minWidth: 500,
-                  maxWidth: 1000,
+                  maxWidth: 800,
                 ),
                 child: Form(
                   child: Builder(
@@ -62,132 +64,116 @@ class _ContactPageState extends State<ContactPage> {
                       return ListView(
                         padding: const EdgeInsets.symmetric(
                           vertical: 32,
-                          horizontal: 16,
                         ),
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
+                          TextFormField(
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                              label: Text('Name'),
+                              border: OutlineInputBorder(),
                             ),
-                            child: TextFormField(
-                              controller: _nameController,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) => (value?.isEmpty ?? true)
+                                ? 'Name is required'
+                                : null,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                              controller: _emailController,
                               decoration: const InputDecoration(
-                                label: Text('Name'),
+                                label: Text('Email'),
                                 border: OutlineInputBorder(),
                               ),
-                              textInputAction: TextInputAction.next,
+                              validator: _handleEmailValidation),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: TextFormField(
+                              maxLines: null,
+                              expands: true,
+                              keyboardType: TextInputType.multiline,
+                              controller: _commentController,
+                              decoration: const InputDecoration(
+                                label: Text('Comment'),
+                                border: OutlineInputBorder(),
+                              ),
                               validator: (value) => (value?.isEmpty ?? true)
-                                  ? 'Name is required'
+                                  ? 'Comment is required'
                                   : null,
                             ),
                           ),
                           const SizedBox(
                             height: 16,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: TextFormField(
-                                controller: _emailController,
-                                decoration: const InputDecoration(
-                                  label: Text('Email'),
-                                  border: OutlineInputBorder(),
-                                ),
-                                validator: _handleEmailValidation),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: SizedBox(
-                              height: 100,
-                              child: TextFormField(
-                                maxLines: null,
-                                expands: true,
-                                keyboardType: TextInputType.multiline,
-                                controller: _commentController,
-                                decoration: const InputDecoration(
-                                  label: Text('Comment'),
-                                  border: OutlineInputBorder(),
-                                ),
-                                validator: (value) => (value?.isEmpty ?? true)
-                                    ? 'Comment is required'
-                                    : null,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: ElevatedButton.icon(
-                              onPressed: () async {
-                                ScaffoldFeatureController? scaffoldController;
-
-                                if (Form.of(context).validate()) {
-                                  setState(() {
-                                    _isInAsync = true;
-                                  });
-
-                                  final response = await http.post(
-                                    Uri.parse('https://formspree.io/f/xayrojka'),
-                                    headers: <String, String>{
-                                      'Content-Type':
-                                          'application/json; charset=UTF-8',
-                                    },
-                                    body: jsonEncode(<String, String>{
-                                      'name': _nameController.text,
-                                      'email': _emailController.text,
-                                      'comment': _commentController.text,
-                                    }),
-                                  );
-
-                                  await Future.delayed(const Duration(seconds: 1));
-                                  if (!context.mounted) return;
-
-                                  setState(() {
-                                    _isInAsync = false;
-                                  });
-
-                                  if (response.statusCode == 200) {
-                                    scaffoldController =
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Thank you for your message!'),
-                                        ),
-                                      );
-
-                                      // Reset manually, form won't reset
-                                      _nameController.text = '';
-                                      _emailController.text = '';
-                                      _commentController.text = '';
-                                  } else {
-                                    scaffoldController =
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                          ElevatedButton.icon(
+                            onPressed: () async {
+                              ScaffoldFeatureController? scaffoldController;
+                          
+                              if (Form.of(context).validate()) {
+                                setState(() {
+                                  _isInAsync = true;
+                                });
+                          
+                                final response = await http.post(
+                                  Uri.parse('https://formspree.io/f/xayrojka'),
+                                  headers: <String, String>{
+                                    'Content-Type':
+                                        'application/json; charset=UTF-8',
+                                  },
+                                  body: jsonEncode(<String, String>{
+                                    'name': _nameController.text,
+                                    'email': _emailController.text,
+                                    'comment': _commentController.text,
+                                  }),
+                                );
+                          
+                                await Future.delayed(const Duration(seconds: 1));
+                                if (!context.mounted) return;
+                          
+                                setState(() {
+                                  _isInAsync = false;
+                                });
+                          
+                                if (response.statusCode == 200) {
+                                  scaffoldController =
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text('Hmmm, something went wrong...'),
+                                        content: Text('Thank you for your message!'),
                                       ),
                                     );
-                                  }
-
-                                  await scaffoldController.closed;
+                          
+                                    // Reset manually, form won't reset
+                                    _nameController.text = '';
+                                    _emailController.text = '';
+                                    _commentController.text = '';
+                                } else {
+                                  scaffoldController =
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text('Hmmm, something went wrong...'),
+                                    ),
+                                  );
                                 }
-                              },
-                              icon: _isInAsync
-                                  ? Container(
-                                      width: 24,
-                                      height: 24,
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: const CircularProgressIndicator(
-                                        strokeWidth: 3,
-                                      ),
-                                    )
-                                  : const Icon(Icons.send),
-                              label: const Text('Send'),
-                            ),
+                          
+                                await scaffoldController.closed;
+                              }
+                            },
+                            icon: _isInAsync
+                                ? Container(
+                                    width: 24,
+                                    height: 24,
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: const CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                    ),
+                                  )
+                                : const Icon(Icons.send),
+                            label: const Text('Send'),
                           ),
                         ],
                       );
