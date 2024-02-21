@@ -8,12 +8,12 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-        if (constraints.maxWidth > screenWBreakpoint + 300) {
-          return const LargeLayout();
-        } else {
-          return const SmallLayout();
-        }
-    });
+    final size = MediaQuery.of(context).size;
+
+    if (size.width > screenWBreakpoint) {
+      return const LargeLayout();
+    } else {
+      return const SmallLayout();
+    }
   }
 }

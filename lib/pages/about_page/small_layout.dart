@@ -24,44 +24,35 @@ class _SmallLayoutState extends State<SmallLayout> {
             padding: const EdgeInsets.all(50),
             child: const Column(
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'About Me',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Text(
-                      aboutMe,
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'About Me',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  aboutMe,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
                 ),
                 SizedBox(
                   height: 100,
                 ),
-                Column(
-                  children: [
-                    Text(
-                      'My Stack',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    SkillsDisplay(),
-                  ],
+                Text(
+                  'My Stack',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
+                SizedBox(
+                  height: 50,
+                ),
+                SkillsDisplay(),
               ],
             ),
           ),
