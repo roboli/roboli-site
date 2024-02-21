@@ -43,7 +43,7 @@ class MyWorkPage extends StatelessWidget {
                       name: 'Junior PHP & JavaScript',
                       uri: Uri.https('a.co', 'd/5IlhmFZ'),
                     ),
-                    const SizedBox(height: 25,),
+                    const SizedBox(height: 50,),
                     const Text(
                       'Projects',
                       style: TextStyle(
@@ -70,6 +70,7 @@ class MyWorkPage extends StatelessWidget {
                       description: clerk,
                       uri: Uri.https('github.com', 'roboli/clerk'),
                     ),
+                    const SizedBox(height: 50,),
                     const Text(
                       'Articles',
                       style: TextStyle(

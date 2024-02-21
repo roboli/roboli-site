@@ -14,31 +14,27 @@ class ArticleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-      child: SizedBox(
-        height: 50,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () => launchUrl(uri),
-              child: SizedBox(
-                height: 50,
-                child: SvgPicture.asset('assets/svgs/icons8-medium.svg'),
-              ),
-            ),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0),
-              child: Text(
-                name,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )),
-          ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
+          child: InkWell(
+            onTap: () => launchUrl(uri),
+            child: SvgPicture.asset('assets/svgs/icons8-medium.svg'),
+          ),
         ),
-      ),
+        Flexible(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0),
+            child: Text(
+              name,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          )
+        ),
+      ],
     );
   }
 }

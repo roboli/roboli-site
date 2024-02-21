@@ -14,28 +14,27 @@ class BookTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InkWell(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
+          child: InkWell(
             onTap: () => launchUrl(uri),
-            child: SizedBox(
-              height: 150,
-              child: SvgPicture.asset('assets/svgs/amazon_icon.svg'),
-            ),
+            child: SvgPicture.asset('assets/svgs/amazon_icon.svg'),
           ),
-          Expanded(
-            child: Padding(
+        ),
+        Flexible(
+          flex: 1,
+          child: Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0),
             child: Text(
               name,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-          )),
-        ],
-      ),
+          )
+        ),
+      ],
     );
   }
 }
