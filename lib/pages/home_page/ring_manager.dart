@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:roboli_site/helpers/device.dart';
 
 class RingManager extends StatefulWidget {
   final Widget child;
@@ -22,7 +23,8 @@ class RingManager extends StatefulWidget {
       required this.backward,
       required this.startPos,
       required this.mounted,
-      required size}) : center = Offset(size.width / 2, size.height / 2);
+      required size})
+      : center = Offset(size.width / 2, size.height / 2);
 
   @override
   State<RingManager> createState() => _RingManagerState();
@@ -30,6 +32,34 @@ class RingManager extends StatefulWidget {
 
 class _RingManagerState extends State<RingManager> {
   double pos = 0;
+  bool isMoving = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (isWebMobile) {
+      _toggleAnimation();
+    }
+  }
+
+  void _toggleAnimation() {
+    if (isMoving) {
+      widget.controller.stop();
+      setState(() {
+        isMoving = false;
+      });
+    } else {
+      widget.controller.repeat(period: const Duration(seconds: 50));
+      setState(() {
+        isMoving = true;
+      });
+    }
+  }
+
+  void _handleTap() {
+    _toggleAnimation();
+  }
 
   void _handleMouseHover(PointerEvent details) {
     EasyDebounce.debounce(
@@ -59,9 +89,19 @@ class _RingManagerState extends State<RingManager> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onHover: _handleMouseHover,
-      child: widget.child,
-    );
+    if (isWebMobile) {
+      return GestureDetector(
+        onTap: _handleTap,
+        child: Container(
+          color: isMoving ? Colors.blueGrey : Colors.transparent,
+          child: widget.child
+        ),
+      );
+    } else {
+      return MouseRegion(
+        onHover: _handleMouseHover,
+        child: widget.child,
+      );
+    }
   }
 }

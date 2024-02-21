@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage>
     moveForward = Tween<double>(begin: 0, end: HomePage.twoPi);
     animationF = moveForward.animate(controller);
 
-    moveBackward = Tween<double>(begin: 0, end: HomePage.twoPi);
+    moveBackward = Tween<double>(begin: HomePage.twoPi, end: 0);
     animationB = moveBackward.animate(controller);
   }
 
