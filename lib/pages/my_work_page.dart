@@ -9,24 +9,25 @@ class MyWorkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: EdgeInsets.all(width > screenWBreakpoint ? 50 : 20),
         child: Column(
           children: [
-            const Center(
+            Center(
               child: Text(
                 'My Work',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: width > screenWBreakpoint ? 30 : 25,
                 ),
               ),
             ),
             const SizedBox(height: 75,),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 100,),
                 children: [
                   const Text(
                     'Books',
