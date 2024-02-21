@@ -20,51 +20,47 @@ class Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          logo,
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  role,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        logo,
+        const SizedBox(width: 20,),
+        Flexible(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                role,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Text(
+                client,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  fontSize: 15),
+              ),
+              Text(
+                dateRange,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
                 ),
-                Text(
-                  client,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                      fontSize: 15),
+              ),
+              Text(
+                location,
+                style: const TextStyle(
+                  color: Colors.grey,
                 ),
-                Text(
-                  dateRange,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  location,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(bottom: 2.0)),
-                Expanded(
-                  child: Text(description),
-                ),
-              ],
-            ),
-          )),
-        ],
-      ),
+              ),
+              const Padding(padding: EdgeInsets.only(bottom: 2.0)),
+              Text(description,),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

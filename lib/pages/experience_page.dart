@@ -57,6 +57,7 @@ class ExperiencePage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20,),
                       Tile(
                         role: 'Full Stack Engineer',
                         client: 'Pay Justice Ltd',
@@ -74,6 +75,7 @@ class ExperiencePage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20,),
                       Tile(
                         role: 'Full Stack Developer',
                         client: 'Flow XO',
