@@ -33,7 +33,11 @@ class Tile extends StatelessWidget {
             children: [
               Text(
                 role,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               Text(
                 client,
