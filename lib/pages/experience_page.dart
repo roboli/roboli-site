@@ -8,24 +8,25 @@ class ExperiencePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: EdgeInsets.all(size.width > screenWBreakpoint ? 30 : 5),
         child: Column(
           children: [
-            const Center(
+            Center(
               child: Text(
                 'My Experience',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: size.width > screenWBreakpoint ? 30 : 25,
                 ),
               ),
             ),
             const SizedBox(height: 75,),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 100,),
                 children: [
                   Tile(
                     role: 'Integration Engineer',
