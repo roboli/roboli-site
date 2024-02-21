@@ -31,11 +31,12 @@ class MyWorkPage extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 900),
                 child: ListView(
                   children: [
-                    const Text(
+                    Text(
                       'Books',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
+                        color: Theme.of(context).primaryColor
                       ),
                     ),
                     const SizedBox(height: 25,),
@@ -44,11 +45,12 @@ class MyWorkPage extends StatelessWidget {
                       uri: Uri.https('a.co', 'd/5IlhmFZ'),
                     ),
                     const SizedBox(height: 50,),
-                    const Text(
+                    Text(
                       'Projects',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
+                        color: Theme.of(context).primaryColor
                       ),
                     ),
                     const SizedBox(height: 25,),
@@ -71,11 +73,12 @@ class MyWorkPage extends StatelessWidget {
                       uri: Uri.https('github.com', 'roboli/clerk'),
                     ),
                     const SizedBox(height: 50,),
-                    const Text(
+                    Text(
                       'Articles',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
+                        color: Theme.of(context).primaryColor
                       ),
                     ),
                     const SizedBox(height: 25,),
