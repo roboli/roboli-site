@@ -27,7 +27,7 @@ class ProjectTile extends StatelessWidget {
             onTap: () => launchUrl(uri),
             child: SizedBox(
               height: 50,
-              child: SvgPicture.asset('assets/icons/github-mark-white.svg'),
+              child: SvgPicture.asset('assets/svgs/github-mark-white.svg'),
             ),
           ),
           Expanded(

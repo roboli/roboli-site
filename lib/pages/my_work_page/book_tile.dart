@@ -25,7 +25,7 @@ class BookTile extends StatelessWidget {
               onTap: () => launchUrl(uri),
               child: SizedBox(
                 height: 150,
-                child: SvgPicture.asset('assets/icons/amazon_icon.svg'),
+                child: SvgPicture.asset('assets/svgs/amazon_icon.svg'),
               ),
             ),
             Expanded(

@@ -25,7 +25,7 @@ class ArticleTile extends StatelessWidget {
               onTap: () => launchUrl(uri),
               child: SizedBox(
                 height: 50,
-                child: SvgPicture.asset('assets/icons/icons8-medium.svg'),
+                child: SvgPicture.asset('assets/svgs/icons8-medium.svg'),
               ),
             ),
             Expanded(
