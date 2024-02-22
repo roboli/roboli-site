@@ -32,7 +32,7 @@ class ExperiencePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 75,
+                height: 50,
               ),
               Expanded(
                 child: ConstrainedBox(

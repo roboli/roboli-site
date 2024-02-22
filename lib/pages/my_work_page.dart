@@ -25,7 +25,7 @@ class MyWorkPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 75,),
+            const SizedBox(height: 25,),
             Expanded(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 900),
