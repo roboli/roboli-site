@@ -21,7 +21,7 @@ Clojure is, as of today, the most modern representation of the Lisp programming 
 """;
 
 const myDart = """
-The internet is everywhere and having a mobile device is the norm. Long gone are the days where targeting the web as the ubiquitous platform was the only choice. Today, a successful app requires many fronts: web, desktop, mobile or even embedded. But doing so could mean requiring a team for each platform which translates to a lot of money and effort. Enter Flutter and Dart to the rescue. Both technologies together open the door to a “build once and deliver everywhere” multi platform solution. Proof of its reliability comes from the fact that it is used and backed by Google and its popularity has exponentially grown in the last couple of years.
+The internet is everywhere and having a mobile device is the norm. Long gone are the days where targeting the web as the ubiquitous platform was the only choice. Today, a successful app requires many fronts: web, desktop, mobile or even embedded. But doing so could mean requiring a team for each platform which translates to a lot of money and effort. Enter Flutter and Dart to the rescue. Both technologies together open the door to a “build once and deliver everywhere” multi platform solution. Proof of its reliability comes from the fact that it is used and backed by Google and its popularity has exponentially grown in the last few years.
 """;
 
 const myJS = """
