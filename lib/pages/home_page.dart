@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage>
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      'Hi there! Welcome to Roberto Oliveros\' home page.',
+                      'Hi there! I\'m Roberto and welcome to my site',
                       style: TextStyle(
                         fontSize: size.width > screenWBreakpoint ? 30 : 20
                       ),
