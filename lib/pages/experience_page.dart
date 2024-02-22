@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:roboli_site/helpers/constants.dart';
 import 'package:roboli_site/pages/experience_page/tile.dart';
 
@@ -90,7 +91,29 @@ class ExperiencePage extends StatelessWidget {
                           child:
                               SvgPicture.asset('assets/svgs/flowXO-colour.svg'),
                         ),
-                      )
+                      ),
+                      const SizedBox(height: 30,),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'For a complete list of my experience, please download my CV:',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          InkWell(
+                            onTap: () => launchUrl(Uri.https('a.co', 'd/5IlhmFZ')),
+                            child: Text(
+                              'Here',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue
+                              ),
+                            ),
+                          ),
+                        ]
+                      ),
+                      const SizedBox(height: 20,),
                     ],
                   ),
                 ),
