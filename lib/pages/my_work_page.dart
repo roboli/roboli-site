@@ -60,12 +60,14 @@ class MyWorkPage extends StatelessWidget {
                       description: pdf2Images,
                       uri: Uri.https('github.com', 'roboli/pdf-2-images'),
                     ),
+                    const SizedBox(height: 15,),
                     ProjectTile(
                       name: 'balloon',
                       language: 'Clojure',
                       description: balloon,
                       uri: Uri.https('github.com', 'roboli/balloon'),
                     ),
+                    const SizedBox(height: 15,),
                     ProjectTile(
                       name: 'Clerk',
                       language: 'Clojure',
