@@ -17,36 +17,40 @@ class LargeLayout extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'About Me',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'About Me',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 50,),
-                      Text(
-                        aboutMe,
-                        style: TextStyle(fontSize: 15,),
-                      ),
-                    ],
+                        SizedBox(height: 50,),
+                        Text(
+                          aboutMe,
+                          style: TextStyle(fontSize: 15,),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(width: 100,),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'My Stack',
-                        style: TextStyle(fontSize: 20,),
-                      ),
-                      SizedBox(height: 50,),
-                      SkillsDisplay(),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'My Stack',
+                          style: TextStyle(fontSize: 20,),
+                        ),
+                        SizedBox(height: 50,),
+                        SkillsDisplay(),
+                      ],
+                    ),
                   ),
                 ),
               ],
