@@ -21,7 +21,7 @@ class _SmallLayoutState extends State<SmallLayout> {
         child: SingleChildScrollView(
           controller: _controller,
           child: Padding(
-            padding: const EdgeInsets.all(50),
+            padding: const EdgeInsets.all(20),
             child: const Column(
               children: [
                 Text(
@@ -41,7 +41,7 @@ class _SmallLayoutState extends State<SmallLayout> {
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 50,
                 ),
                 Text(
                   'My Stack',
