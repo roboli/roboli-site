@@ -60,3 +60,6 @@ const balloon =
     'Deflate a nested map into one level deep or inflate a one level into a nested map using delimited keys.';
 
 const clerk = 'Syntatic sugar over Secretary router to make it Om ready.';
+
+const contact =
+    'I’ll be thrilled working with you. If you have further questions please contact me or find me in any of the networks shown below.';

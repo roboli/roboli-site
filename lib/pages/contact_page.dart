@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:roboli_site/helpers/constants.dart';
 
 class ContactPage extends StatefulWidget {
@@ -51,6 +53,13 @@ class _ContactPageState extends State<ContactPage> {
                   fontSize: width > screenWBreakpoint ? 30 : 25,
                 ),
               ),
+            ),
+            const SizedBox(height: 25,),
+            const Text(
+              contact,
+              style: TextStyle(
+                  fontSize: 15,
+                ),
             ),
             Expanded(
               child: Container(
@@ -174,6 +183,33 @@ class _ContactPageState extends State<ContactPage> {
                                   )
                                 : const Icon(Icons.send),
                             label: const Text('Send'),
+                          ),
+                          const SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                onTap: () => launchUrl(Uri.https('www.linkedin.com', '/in/roboli')),
+                                child: const Icon(
+                                  FontAwesomeIcons.linkedin,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => launchUrl(Uri.https('github.com', '/roboli')),
+                                child: const Icon(
+                                  FontAwesomeIcons.github,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => launchUrl(Uri.https('stackoverflow.com', '/users/2202143/roboli')),
+                                child: const Icon(
+                                  FontAwesomeIcons.stackOverflow,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       );
