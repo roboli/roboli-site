@@ -8,43 +8,50 @@ class LargeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Padding(
-        padding: EdgeInsets.all(50),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'About Me',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1500),
+          child: const Padding(
+            padding: EdgeInsets.all(50),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'About Me',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      SizedBox(height: 50,),
+                      Text(
+                        aboutMe,
+                        style: TextStyle(fontSize: 15,),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 50,),
-                  Text(
-                    aboutMe,
-                    style: TextStyle(fontSize: 15,),
+                ),
+                SizedBox(width: 100,),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'My Stack',
+                        style: TextStyle(fontSize: 20,),
+                      ),
+                      SizedBox(height: 50,),
+                      SkillsDisplay(),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(width: 100,),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'My Stack',
-                    style: TextStyle(fontSize: 20,),
-                  ),
-                  SizedBox(height: 50,),
-                  SkillsDisplay(),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
