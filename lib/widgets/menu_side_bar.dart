@@ -22,15 +22,21 @@ class MenuSideBar extends StatefulWidget {
   State<StatefulWidget> createState() => _MenuSideBar();
 }
 
-class _MenuSideBar extends State<MenuSideBar>
-    with SingleTickerProviderStateMixin {
+class _MenuSideBar extends State<MenuSideBar> with TickerProviderStateMixin {
   late TabController _tabController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     _tabController =
         TabController(vsync: this, length: 5, initialIndex: widget.index);
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )
+      ..drive(Tween<double>(begin: 0, end: 1))
+      ..forward();
   }
 
   @override
@@ -46,6 +52,7 @@ class _MenuSideBar extends State<MenuSideBar>
   @override
   void dispose() {
     _tabController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -68,51 +75,54 @@ class _MenuSideBar extends State<MenuSideBar>
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Row(
-        children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: minHeight),
-            child: Container(
-              width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
-              alignment: Alignment.topCenter,
-              padding: const EdgeInsets.symmetric(vertical: 32),
-              child: RotatedBox(
-                quarterTurns: 1,
-                child: TabBar(
-                  controller: _tabController,
-                  labelPadding: EdgeInsets.zero,
-                  indicatorColor: Colors.transparent,
-                  tabs: [
-                    _buildTab('HOME', Icons.home, 0),
-                    _buildTab('ABOUT', Icons.person, 1),
-                    _buildTab('EXPERIENCE', Icons.work, 2),
-                    _buildTab('MY WORK', Icons.palette_rounded, 3),
-                    _buildTab('CONTACT', Icons.email, 4),
-                  ],
-                  onTap: (index) {
-                    updateRouter(index);
-                  },
+      child: FadeTransition(
+        opacity: _animationController,
+        child: Row(
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: minHeight),
+              child: Container(
+                width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
+                alignment: Alignment.topCenter,
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: TabBar(
+                    controller: _tabController,
+                    labelPadding: EdgeInsets.zero,
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      _buildTab('HOME', Icons.home, 0),
+                      _buildTab('ABOUT', Icons.person, 1),
+                      _buildTab('EXPERIENCE', Icons.work, 2),
+                      _buildTab('MY WORK', Icons.palette_rounded, 3),
+                      _buildTab('CONTACT', Icons.email, 4),
+                    ],
+                    onTap: (index) {
+                      updateRouter(index);
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildTabView(const HomePage()),
-                  _buildTabView(const AboutPage()),
-                  _buildTabView(const ExperiencePage()),
-                  _buildTabView(const MyWorkPage()),
-                  _buildTabView(const ContactPage()),
-                ],
+            Expanded(
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: TabBarView(
+                  controller: _tabController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _buildTabView(const HomePage()),
+                    _buildTabView(const AboutPage()),
+                    _buildTabView(const ExperiencePage()),
+                    _buildTabView(const MyWorkPage()),
+                    _buildTabView(const ContactPage()),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ));
   }

@@ -76,11 +76,10 @@ class _HomePageState extends State<HomePage>
                     child: AnimatedRing(
                       animation: animationF,
                       segment: Segment(
-                        color: Colors.green,
-                        start: random.nextDouble() * HomePage.twoPi,
-                        size: HomePage.twoPi * 0.875,
-                        radius: radius + 20
-                      ),
+                          color: Colors.green,
+                          start: random.nextDouble() * HomePage.twoPi,
+                          size: HomePage.twoPi * 0.875,
+                          radius: radius + 20),
                       child: AnimatedRing(
                         animation: animationB,
                         segment: Segment(
@@ -99,7 +98,9 @@ class _HomePageState extends State<HomePage>
                           ),
                           child: CircleAvatar(
                             radius: radius - 20,
-                            backgroundImage: const AssetImage('assets/images/roberto.jpg'),
+                            backgroundColor: Colors.black87,
+                            backgroundImage:
+                                const AssetImage('assets/images/roberto.jpg'),
                           ),
                         ),
                       ),
@@ -110,8 +111,7 @@ class _HomePageState extends State<HomePage>
                     child: Text(
                       'Hi there! I\'m Roberto and welcome to my site',
                       style: TextStyle(
-                        fontSize: size.width > screenWBreakpoint ? 30 : 20
-                      ),
+                          fontSize: size.width > screenWBreakpoint ? 30 : 20),
                       textAlign: TextAlign.center,
                     ),
                   ),

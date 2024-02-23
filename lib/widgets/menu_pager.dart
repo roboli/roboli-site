@@ -12,22 +12,28 @@ class MenuPager extends StatefulWidget {
   final String page;
   final int index;
 
-  MenuPager({super.key, required this.page})
-      : index = pages[page] ?? 0;
+  MenuPager({super.key, required this.page}) : index = pages[page] ?? 0;
 
   @override
-  State<MenuPager> createState() =>
-      _MenuPagerState();
+  State<MenuPager> createState() => _MenuPagerState();
 }
 
-class _MenuPagerState extends State<MenuPager> {
+class _MenuPagerState extends State<MenuPager>
+    with SingleTickerProviderStateMixin {
   late PageController _pageController;
+  late AnimationController _animationController;
   bool isInTransition = false;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: widget.index);
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )
+      ..drive(Tween<double>(begin: 0, end: 1))
+      ..forward();
   }
 
   @override
@@ -43,6 +49,7 @@ class _MenuPagerState extends State<MenuPager> {
   @override
   void dispose() {
     _pageController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -50,36 +57,39 @@ class _MenuPagerState extends State<MenuPager> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ColoredBox(
-          color: Colors.black87,
-          child: Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  controller: _pageController,
-                  onPageChanged: (int index) {
-                    updateRouter(index);
-                  },
-                  children: const [
-                    HomePage(),
-                    AboutPage(),
-                    ExperiencePage(),
-                    MyWorkPage(),
-                    ContactPage(),
-                  ],
+        child: FadeTransition(
+          opacity: _animationController,
+          child: ColoredBox(
+            color: Colors.black87,
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (int index) {
+                      updateRouter(index);
+                    },
+                    children: const [
+                      HomePage(),
+                      AboutPage(),
+                      ExperiencePage(),
+                      MyWorkPage(),
+                      ContactPage(),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-                child: DotsIndicator(
-                  dotsCount: 5,
-                  position: widget.index,
-                  onTap: (index) {
-                    updateRouter(index);
-                  },
+                SizedBox(
+                  height: 50,
+                  child: DotsIndicator(
+                    dotsCount: 5,
+                    position: widget.index,
+                    onTap: (index) {
+                      updateRouter(index);
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
