@@ -101,7 +101,7 @@ class ExperiencePage extends StatelessWidget {
                             style: TextStyle(fontSize: 15),
                           ),
                           InkWell(
-                            onTap: () => launchUrl(Uri.https('a.co', 'd/5IlhmFZ')),
+                            onTap: () => launchUrl(Uri.https('d2zi4kn7tjo99f.cloudfront.net', '/Resume-Roberto-Oliveros.pdf')),
                             child: Text(
                               'Here',
                               style: TextStyle(
