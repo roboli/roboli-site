@@ -5,7 +5,6 @@ import 'package:roboli_site/helpers/constants.dart';
 import 'package:roboli_site/pages/about_page.dart';
 import 'package:roboli_site/pages/contact_page.dart';
 import 'package:roboli_site/pages/experience_page.dart';
-import 'package:roboli_site/pages/games_page.dart';
 import 'package:roboli_site/pages/home_page.dart';
 import 'package:roboli_site/pages/my_work_page.dart';
 
@@ -31,7 +30,7 @@ class _MenuSideBar extends State<MenuSideBar>
   void initState() {
     super.initState();
     _tabController =
-        TabController(vsync: this, length: 6, initialIndex: widget.index);
+        TabController(vsync: this, length: 5, initialIndex: widget.index);
   }
 
   @override
@@ -89,7 +88,6 @@ class _MenuSideBar extends State<MenuSideBar>
                     _buildTab('EXPERIENCE', Icons.work, 2),
                     _buildTab('MY WORK', Icons.palette_rounded, 3),
                     _buildTab('CONTACT', Icons.email, 4),
-                    _buildTab('BORED?', Icons.flutter_dash, 5),
                   ],
                   onTap: (index) {
                     updateRouter(index);
@@ -110,7 +108,6 @@ class _MenuSideBar extends State<MenuSideBar>
                   _buildTabView(const ExperiencePage()),
                   _buildTabView(const MyWorkPage()),
                   _buildTabView(const ContactPage()),
-                  _buildTabView(const GamesPage()),
                 ],
               ),
             ),
@@ -152,10 +149,6 @@ class _MenuSideBar extends State<MenuSideBar>
 
       case 4:
         page = 'contact';
-        break;
-
-      case 5:
-        page = 'games';
         break;
     }
 

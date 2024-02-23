@@ -5,7 +5,6 @@ import 'package:roboli_site/helpers/constants.dart';
 import 'package:roboli_site/pages/about_page.dart';
 import 'package:roboli_site/pages/contact_page.dart';
 import 'package:roboli_site/pages/experience_page.dart';
-import 'package:roboli_site/pages/games_page.dart';
 import 'package:roboli_site/pages/home_page.dart';
 import 'package:roboli_site/pages/my_work_page.dart';
 
@@ -67,14 +66,13 @@ class _MenuPagerState extends State<MenuPager> {
                     ExperiencePage(),
                     MyWorkPage(),
                     ContactPage(),
-                    GamesPage(),
                   ],
                 ),
               ),
               SizedBox(
                 height: 50,
                 child: DotsIndicator(
-                  dotsCount: 6,
+                  dotsCount: 5,
                   position: widget.index,
                   onTap: (index) {
                     updateRouter(index);
@@ -113,10 +111,6 @@ class _MenuPagerState extends State<MenuPager> {
 
       case 4:
         page = 'contact';
-        break;
-
-      case 5:
-        page = 'games';
         break;
     }
 
