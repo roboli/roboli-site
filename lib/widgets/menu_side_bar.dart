@@ -125,9 +125,6 @@ class _MenuSideBar extends State<MenuSideBar>
   }
 
   void updateRouter(int index) {
-    // Do not update router if page transition is happening
-    // if (isInTransition) return;
-
     String page = 'home';
 
     switch (index) {
