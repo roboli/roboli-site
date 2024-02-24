@@ -1,6 +1,6 @@
 # roboli_site
 
-A new Flutter project.
+A Flutter project for my personal [website](https://roboli.github.io).
 
 ## Getting Started
 
