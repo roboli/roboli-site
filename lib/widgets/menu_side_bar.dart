@@ -79,13 +79,13 @@ class _MenuSideBar extends State<MenuSideBar> with TickerProviderStateMixin {
         opacity: _animationController,
         child: Row(
           children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: minHeight),
-              child: Container(
-                width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
-                alignment: Alignment.topCenter,
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                color: Colors.grey[900],
+            Container(
+              width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 32),
+              color: Colors.grey[900],
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: minHeight),
                 child: RotatedBox(
                   quarterTurns: 1,
                   child: TabBar(
