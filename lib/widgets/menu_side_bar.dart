@@ -85,6 +85,7 @@ class _MenuSideBar extends State<MenuSideBar> with TickerProviderStateMixin {
                 width: 125 * MediaQuery.of(context).textScaler.scale(0.9),
                 alignment: Alignment.topCenter,
                 padding: const EdgeInsets.symmetric(vertical: 32),
+                color: Colors.grey[900],
                 child: RotatedBox(
                   quarterTurns: 1,
                   child: TabBar(
