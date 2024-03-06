@@ -25,7 +25,7 @@ The internet is everywhere and having a mobile device is the norm. Long gone are
 """;
 
 const myJS = """
-Is a given that JavaScript is the lingua franca of the internet and it will continue to do so for many years. From NodeJS running in the backend to ReactJS for the frontend, I put more than 7 years of my experience at your disposal.
+Is a given that JavaScript is the lingua franca of the internet and it will continue to do so for many years. From NodeJS running in the backend to ReactJS on the frontend, using JavaScript or TypeScript, is it for building a traditional CRM system or a real time workflow/chat (with websockets) application, I’ve been there and I know every corner of its implementation. I’ll gladly put more than 7 years of my experience at your disposal.
 """;
 
 const jobLH =
